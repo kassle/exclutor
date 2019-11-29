@@ -24,20 +24,13 @@ public class ThreadPoolImpl implements ThreadPool, WorkerListener {
 
     @Override
     public void onTaskAdded() {
-        synchronized (taskCounter) {
-            taskCounter.getAndIncrement();
-
-            synchronized (threadCounter) {
-                startNewThread();
-            }
-        }
+        taskCounter.getAndIncrement();
+        startNewThread();
     }
 
     @Override
     public int getRemainingTask() {
-        synchronized (taskCounter) {
-            return taskCounter.get();
-        }
+        return taskCounter.get();
     }
 
     @Override
@@ -51,19 +44,18 @@ public class ThreadPoolImpl implements ThreadPool, WorkerListener {
     public void onFinish() {
         synchronized (threadCounter) {
             threadCounter.getAndDecrement();
-
-            synchronized (taskCounter) {
-                startNewThread();
-            }
+            startNewThread();
         }
     }
 
     private void startNewThread() {
-        if (taskCounter.get() > 0 && threadCounter.get() < maxThread) {
-            Thread thread = threadFactory.newThread(workerFactory.create(this));
-            threadCounter.getAndIncrement();
-            taskCounter.getAndDecrement();
-            thread.start();
+        synchronized (threadCounter) {
+            if (taskCounter.get() > 0 && threadCounter.get() < maxThread) {
+                Thread thread = threadFactory.newThread(workerFactory.create(this));
+                threadCounter.getAndIncrement();
+                taskCounter.getAndDecrement();
+                thread.start();
+            }
         }
     }
 }

@@ -6,6 +6,6 @@ import java.util.concurrent.locks.Lock;
  *
  * @author kassle
  */
-interface LockBox {
+public interface LockBox {
     Lock getLock(String scope);
 }

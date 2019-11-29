@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author kassle
  */
-class LockBoxImpl implements LockBox {
+public class LockBoxImpl implements LockBox {
     private final Map<String, Lock> lockMap = new HashMap<>();
 
     @Override
