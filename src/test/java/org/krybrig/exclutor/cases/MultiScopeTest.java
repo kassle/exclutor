@@ -32,9 +32,12 @@ public class MultiScopeTest {
         int grouping = 4;
         
         final List<Item> resultList = Collections.synchronizedList(new ArrayList<>());
+        long start = System.currentTimeMillis();
         for (int i = 1; i <= count; i++) {
             executor.execute(new ExclusiveRunnableImpl(i, segment, resultList, grouping));
         }
+        long finish = System.currentTimeMillis();
+        System.out.println("submit for " + count + " job finish in " + (finish - start));
         
         Thread.sleep(5000);
         

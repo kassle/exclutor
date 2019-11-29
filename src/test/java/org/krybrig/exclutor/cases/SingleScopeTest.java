@@ -29,11 +29,13 @@ public class SingleScopeTest {
         int segment = 100;
         
         final List<Integer> resultList = Collections.synchronizedList(new ArrayList<>());
+        long start = System.currentTimeMillis();
         for (int i = 1; i <= count; i++) {
             executor.execute(new ExclusiveRunnableImpl(i, segment, resultList));
         }
+        long finish = System.currentTimeMillis();
+        System.out.println("submit for " + count + " job finish in " + (finish - start));
         
-        System.out.println("Waiting for completion");
         Thread.sleep(1000 * 5);
         
         assertEquals(count, resultList.size());
