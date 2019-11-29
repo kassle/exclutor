@@ -3,7 +3,6 @@ package org.krybrig.exclutor.internal;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -14,8 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author kassle
  */
 public class ExclusiveExecutor extends ThreadPoolExecutor {
-    private final LockBox lockBox;
-    private final Queue<Runnable> runnableQueue;
+    private final Queue<Runnable> queue;
     private final ExclusiveWorkerFactory workerFactory;
     
     public ExclusiveExecutor(
@@ -26,27 +24,23 @@ public class ExclusiveExecutor extends ThreadPoolExecutor {
             BlockingQueue<Runnable> queue,
             ThreadFactory threadFactory) {
         
-        this(new LockBoxImpl(), new ExclusiveWorkerFactoryImpl(),
-                corePoolSize, maximumPoolSize, keepAliveTime, unit,
-                new LinkedBlockingQueue<Runnable>(), queue, threadFactory);
+        this(new ExclusiveWorkerFactoryImpl(queue, new LockBoxImpl()),
+                corePoolSize, maximumPoolSize, keepAliveTime, unit, queue, threadFactory);
     }
 
     public ExclusiveExecutor(
-            LockBox lockBox,
             ExclusiveWorkerFactory workerFactory,
             int corePoolSize,
             int maximumPoolSize,
             long keepAliveTime,
             TimeUnit unit,
-            BlockingQueue<Runnable> runnableQueue,
             BlockingQueue<Runnable> queue,
             ThreadFactory threadFactory) {
         
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, queue, threadFactory);
         
-        this.lockBox = lockBox;
         this.workerFactory = workerFactory;
-        this.runnableQueue = runnableQueue;
+        this.queue = queue;
     }
 
     @Override
@@ -55,10 +49,14 @@ public class ExclusiveExecutor extends ThreadPoolExecutor {
             throw new NullPointerException();
         }
         
-        synchronized (runnableQueue) {
-            runnableQueue.offer(task);
+        synchronized (queue) {
+            queue.offer(task);
         }
         
-        return super.submit(workerFactory.create(runnableQueue, lockBox));
+        return super.submit(workerFactory.create(new WorkerListener() {
+            @Override
+            public void onFinish() {
+            }
+        }));
     }
 }

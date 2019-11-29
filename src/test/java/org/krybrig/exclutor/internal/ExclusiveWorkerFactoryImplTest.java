@@ -13,18 +13,20 @@ import static org.junit.Assert.*;
 public class ExclusiveWorkerFactoryImplTest {
     private Queue<Runnable> queue;
     private LockBox lockBox;
+    private WorkerListener listener;
     private ExclusiveWorkerFactory factory;
     
     @Before
     public void setUp() {
         queue = EasyMock.createMock(Queue.class);
         lockBox = EasyMock.createMock(LockBox.class);
-        factory = new ExclusiveWorkerFactoryImpl();
+        listener = EasyMock.createMock(WorkerListener.class);
+        factory = new ExclusiveWorkerFactoryImpl(queue, lockBox);
     }
 
     @Test
     public void createShouldReturnWorker() {
-        Runnable worker = factory.create(queue, lockBox);
+        Runnable worker = factory.create(listener);
         
         assertNotNull(worker);
         assertEquals(true, worker instanceof ExclusiveWorker);
@@ -32,19 +34,19 @@ public class ExclusiveWorkerFactoryImplTest {
     
     @Test
     public void createShouldAlwaysReturnNewWorkerInstance() {
-        Runnable worker1 = factory.create(queue, lockBox);
-        Runnable worker2 = factory.create(queue, lockBox);
+        Runnable worker1 = factory.create(listener);
+        Runnable worker2 = factory.create(listener);
         
         assertNotSame(worker1, worker2);
     }
     
     @Test(expected = NullPointerException.class)
     public void createShouldThrowNullPointerWhenQueueIsNull() {
-        factory.create(null, lockBox);
+        new ExclusiveWorkerFactoryImpl(null, lockBox);
     }
     
     @Test(expected = NullPointerException.class)
     public void createShouldThrowNullPointerWhenLockBoxIsNull() {
-        factory.create(queue, null);
+        new ExclusiveWorkerFactoryImpl(queue, null);
     }
 }
