@@ -8,9 +8,9 @@
     
     <repositories>
         <repository>
-            <id>bintray-kassle-oss</id>
-            <name>Krybrig OSS Repository</name>
-            <url>https://dl.bintray.com/kassle/oss</url>
+            <id>bintray-kassle-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/kassle/maven</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -20,7 +20,7 @@
     <distributionManagement>
         <repository>
             <id>bintray-kassle-oss</id>
-            <name>Krybrig OSS Repository</name>
+            <name>kassle-oss</name>
             <url>https://api.bintray.com/maven/kassle/oss/exclutor/;publish=1</url>
         </repository>
     </distributionManagement>
