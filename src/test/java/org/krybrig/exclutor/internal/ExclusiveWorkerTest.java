@@ -14,14 +14,16 @@ import org.krybrig.exclutor.ExclusiveRunnable;
 public class ExclusiveWorkerTest {
     private Queue<Runnable> queue;
     private LockBox lockBox;
+    private WorkerListener listener;
     private ExclusiveWorker worker;
     
     @Before
     public void setUp() {
         queue = EasyMock.createMock(Queue.class);
         lockBox = EasyMock.createMock(LockBox.class);
+        listener = EasyMock.createMock(WorkerListener.class);
         
-        worker = new ExclusiveWorker(queue, lockBox);
+        worker = new ExclusiveWorker(queue, lockBox, listener);
     }
 
     @Test
@@ -33,9 +35,13 @@ public class ExclusiveWorkerTest {
         EasyMock.expect(queue.poll()).andReturn(runnable);
         EasyMock.replay(queue);
         
+        listener.onFinish();
+        EasyMock.replay(listener);
+        
         worker.run();
         
         EasyMock.verify(runnable);
+        EasyMock.verify(listener);
     }
     
     @Test
@@ -43,9 +49,13 @@ public class ExclusiveWorkerTest {
         EasyMock.expect(queue.poll()).andReturn(null);
         EasyMock.replay(queue);
         
+        listener.onFinish();
+        EasyMock.replay(listener);
+        
         worker.run();
         
         EasyMock.verify(queue);
+        EasyMock.verify(listener);
     }
     
     @Test
@@ -68,10 +78,14 @@ public class ExclusiveWorkerTest {
         EasyMock.expect(queue.poll()).andReturn(runnable);
         EasyMock.replay(queue);
         
+        listener.onFinish();
+        EasyMock.replay(listener);
+        
         worker.run();
         
         EasyMock.verify(runnable);
         EasyMock.verify(lock);
+        EasyMock.verify(listener);
     }
     
     @Test 
@@ -104,10 +118,14 @@ public class ExclusiveWorkerTest {
         EasyMock.expect(queue.poll()).andReturn(runnable);
         EasyMock.replay(queue);
         
+        listener.onFinish();
+        EasyMock.replay(listener);
+        
         try {
             worker.run();
         } catch (RuntimeException ex) { }
         
         EasyMock.verify(lock);
+        EasyMock.verify(listener);
     }
 }

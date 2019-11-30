@@ -1,37 +1,21 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
+    build:
+        docker:
+            - image: circleci/openjdk:8-jdk
+        working_directory: ~/repo
 
-    environment:
-      MAVEN_OPTS: -Xmx3200m
+        environment:
+            MAVEN_OPTS: -Xmx3200m
 
-    steps:
-      - checkout
-      - run: mvn clean compile
-
-  test:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
-    steps:
-      - checkout
-      - run: mvn test
-      
-  deploy:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
-    steps:
-      - checkout
-      - run: mvn package -DskipTests=true
+        steps:
+            - checkout
+            - run: 
+                name: Compile
+                command: mvn clean compile
+            - run:
+                name: Test
+                command: mvn test
+            - run:
+                name: Package
+                command: mvn package -DskipTests=true

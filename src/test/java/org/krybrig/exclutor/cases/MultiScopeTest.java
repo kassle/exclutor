@@ -3,6 +3,7 @@ package org.krybrig.exclutor.cases;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -17,27 +18,28 @@ import org.krybrig.exclutor.ExclusiveRunnable;
  * @author kassle
  */
 public class MultiScopeTest {
-    private ExecutorService executor;
+    private Executor executor;
     
     @Before
     public void setUp() {
-        executor = ExclusiveExecutorFactory.create(
-                Runtime.getRuntime().availableProcessors(),
-                Executors.defaultThreadFactory());
+        executor = ExclusiveExecutorFactory.create(Runtime.getRuntime().availableProcessors());
     }
     
     @Test
     public void exclusiveRunnableShouldBlockNextNonExclusiveRunnableWhenSameScope() throws InterruptedException {
-        int count = 1000000;
+        int count = 1000;
         int segment = 100;
         int grouping = 4;
         
         final List<Item> resultList = Collections.synchronizedList(new ArrayList<>());
+        long start = System.currentTimeMillis();
         for (int i = 1; i <= count; i++) {
-            executor.submit(new ExclusiveRunnableImpl(i, segment, resultList, grouping));
+            executor.execute(new ExclusiveRunnableImpl(i, segment, resultList, grouping));
         }
-        executor.shutdown();
-        executor.awaitTermination(5, TimeUnit.SECONDS);
+        long finish = System.currentTimeMillis();
+        System.out.println("submit for " + count + " job finish in " + (finish - start));
+        
+        Thread.sleep(5000);
         
         assertEquals(count, resultList.size());
         

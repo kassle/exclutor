@@ -8,7 +8,7 @@ import java.util.concurrent.locks.Lock;
  *
  * @author kassle
  */
-public class DummyLock implements Lock {
+class DummyLock implements Lock {
 
     @Override
     public void lock() {

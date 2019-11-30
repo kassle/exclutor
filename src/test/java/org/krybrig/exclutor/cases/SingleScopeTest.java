@@ -3,8 +3,7 @@ package org.krybrig.exclutor.cases;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,26 +16,27 @@ import org.krybrig.exclutor.ExclusiveRunnable;
  * @author kassle
  */
 public class SingleScopeTest {
-    private ExecutorService executor;
+    private Executor executor;
     
     @Before
     public void setUp() {
-        executor = ExclusiveExecutorFactory.create(
-                Runtime.getRuntime().availableProcessors(),
-                Executors.defaultThreadFactory());
+        executor = ExclusiveExecutorFactory.create(Runtime.getRuntime().availableProcessors());
     }
     
     @Test
     public void exclusiveRunnableShouldBlockNextNonExclusiveRunnable() throws InterruptedException {
-        int count = 100000;
+        int count = 1000;
         int segment = 100;
         
         final List<Integer> resultList = Collections.synchronizedList(new ArrayList<>());
+        long start = System.currentTimeMillis();
         for (int i = 1; i <= count; i++) {
-            executor.submit(new ExclusiveRunnableImpl(i, segment, resultList));
+            executor.execute(new ExclusiveRunnableImpl(i, segment, resultList));
         }
-        executor.shutdown();
-        executor.awaitTermination(5, TimeUnit.SECONDS);
+        long finish = System.currentTimeMillis();
+        System.out.println("submit for " + count + " job finish in " + (finish - start));
+        
+        Thread.sleep(1000 * 5);
         
         assertEquals(count, resultList.size());
         
@@ -78,7 +78,7 @@ public class SingleScopeTest {
         public void run() {
             if (isExclusive()) {
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) { }
             }
             resultList.add(id);
