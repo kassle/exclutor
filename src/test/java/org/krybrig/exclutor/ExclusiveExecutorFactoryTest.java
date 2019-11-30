@@ -25,4 +25,26 @@ public class ExclusiveExecutorFactoryTest {
         assertNotNull(executor2);
         assertNotSame(executor1, executor2);
     }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void zeroMaxThreadShouldThrowIllegalArgumentException() {
+        ExclusiveExecutorFactory.create(0);
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void negativeMaxThreadShouldThrowIllegalArgumentException() {
+        ExclusiveExecutorFactory.create(-1);
+    }
+    
+    @Test (expected = NullPointerException.class)
+    public void nullThreadFactoryShouldThrowNullpointerException() {
+        Queue<Runnable> queue = EasyMock.createMock(Queue.class);
+        ExclusiveExecutorFactory.create(1, null, queue);
+    }
+    
+    @Test (expected = NullPointerException.class)
+    public void nullQueueShouldThrowNullpointerException() {
+        ThreadFactory threadFactory = EasyMock.createMock(ThreadFactory.class);
+        ExclusiveExecutorFactory.create(1, threadFactory, null);
+    }
 }
