@@ -1,4 +1,4 @@
-# exclutor
+# Exclutor
 
 Implementation of exclusive-able asynchronous process
 
@@ -7,7 +7,9 @@ we need multiple asynchronous process to read data from database,
 but only one asynchronouse process for write data to database
 and the next read process will on hold till the write process finish.
 
-[![CircleCI](https://circleci.com/gh/kassle/exclutor/tree/master.svg?style=svg)](https://circleci.com/gh/kassle/exclutor/tree/master)
+# Status
+
+![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
 
 ## Usage:
 
