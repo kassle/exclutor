@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author kassle
  */
-public class ThreadPoolImpl implements ThreadPool, WorkerListener {
+class ThreadPoolImpl implements ThreadPool, WorkerListener {
 
     private final int maxThread;
     private final ExclusiveWorkerFactory workerFactory;
@@ -16,7 +16,7 @@ public class ThreadPoolImpl implements ThreadPool, WorkerListener {
     private final AtomicInteger taskCounter = new AtomicInteger();
     private final AtomicInteger threadCounter = new AtomicInteger();
 
-    public ThreadPoolImpl(int maxThread, ExclusiveWorkerFactory workerFactory, ThreadFactory threadFactory) {
+    ThreadPoolImpl(int maxThread, ExclusiveWorkerFactory workerFactory, ThreadFactory threadFactory) {
         this.maxThread = maxThread;
         this.workerFactory = workerFactory;
         this.threadFactory = threadFactory;

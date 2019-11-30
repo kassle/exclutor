@@ -6,7 +6,7 @@ package org.krybrig.exclutor;
  */
 public interface ExclusiveRunnable extends Runnable {
     
-    abstract public String getScope();
+    String getScope();
 
     boolean isExclusive();
 }

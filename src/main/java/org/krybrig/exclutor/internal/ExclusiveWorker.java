@@ -8,7 +8,7 @@ import org.krybrig.exclutor.ExclusiveRunnable;
  *
  * @author kassle
  */
-public class ExclusiveWorker implements Runnable {
+class ExclusiveWorker implements Runnable {
 
     private final Queue<Runnable> queue;
     private final LockBox lockBox;
