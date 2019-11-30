@@ -18,4 +18,4 @@ jobs:
                 command: mvn test
             - run:
                 name: Package
-                command: package -DskipTests=true
+                command: mvn package -DskipTests=true
