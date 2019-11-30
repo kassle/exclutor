@@ -21,7 +21,7 @@
         <repository>
             <id>bintray-kassle-oss</id>
             <name>kassle-oss</name>
-            <url>https://api.bintray.com/maven/kassle/oss/exclutor/</url>
+            <url>https://api.bintray.com/maven/kassle/oss/</url>
         </repository>
     </distributionManagement>
     
