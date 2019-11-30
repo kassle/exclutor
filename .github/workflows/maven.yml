@@ -14,8 +14,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build
-      run: mvn clean compile
-    - name: Test
-      run: mvn test
-    - name: Package
-      run: mvn package -DskipTests=true
+      run: mvn clean compile package
