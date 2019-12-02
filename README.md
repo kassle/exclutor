@@ -10,9 +10,31 @@ and the next read process will on hold till the write process finish.
 # Status
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
+[ ![Download](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
 
 ## Usage:
 
+### Adding dependency
+
+#### maven
+
+```
+<dependencies>
+    <dependency>
+        <groupId>org.krybrig</groupId>
+        <artifactId>exclutor</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+#### gradle
+
+```
+implementation 'org.krybrig:exclutor:1.0.0'
+```
+
+### Code
 ```java
 String scope = "db.table.users";
 Executor executor = ExclusiveExecutorFactory.create(Runtime.getRuntime().availableProcessors());
