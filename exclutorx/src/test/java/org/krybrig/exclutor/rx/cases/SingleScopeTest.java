@@ -79,11 +79,8 @@ public class SingleScopeTest {
             if (prev == null || prev.value < item.value) {
                 prev = item;
             } else if (!item.exclusive) {
-                System.out.println("Prev (" + prev.value + ") executed faster than next (" + item.value + ")");
                 prev = item;
             } else {
-                System.out.println("Thread prev task : " + prev.threadName);
-                System.out.println("Thread next task : " + item.threadName);
                 assertFalse("found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")", true);
             }
             
