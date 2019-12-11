@@ -4,10 +4,10 @@
     <parent>
         <groupId>org.krybrig</groupId>
         <artifactId>exclutorj</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
     <artifactId>exclutorx</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     
     <distributionManagement>
