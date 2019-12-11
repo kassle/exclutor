@@ -2,27 +2,23 @@ package org.krybrig.exclutor.rx;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
+import org.krybrig.exclutor.ExclusiveRunnable;
 
 /**
  *
  * @author kassle
  */
 class WorkerImpl extends Scheduler.Worker {
-    private final Set<Disposable> disposableSet = new HashSet<>();
-    private final AtomicBoolean dispose = new AtomicBoolean();
-    
-    private final Scheduler delayScheduler;
+
+    private final Scheduler.Worker delayWorker;
     private final Executor executor;
     private final boolean exclusive;
     private final String scope;
 
-    WorkerImpl(Scheduler delayScheduler, Executor executor, boolean exclusive, String scope) {
-        this.delayScheduler = delayScheduler;
+    WorkerImpl(Scheduler.Worker delayWorker, Executor executor, boolean exclusive, String scope) {
+        this.delayWorker = delayWorker;
         this.executor = executor;
         this.exclusive = exclusive;
         this.scope = scope;
@@ -30,70 +26,55 @@ class WorkerImpl extends Scheduler.Worker {
 
     @Override
     public Disposable schedule(Runnable run) {
-        DisposableTask task = new DisposableTask(run, exclusive, scope) {
-            @Override
-            public void onFinish() {
-                synchronized (disposableSet) {
-                    disposableSet.remove(this);
-                }
-            }
-        };
-        synchronized(disposableSet) {
-            disposableSet.add(task);
-        }
-        executor.execute(task);
-        return task;
-    }
-    
-    @Override
-    public Disposable schedule(Runnable run, long delay, TimeUnit unit) {
-        Disposable disposable = delayScheduler.scheduleDirect(new DisposableTask(run) {
-            @Override
-            public void run() {
-                WorkerImpl.this.schedule(run);
-            }
-            
-            @Override
-            public void onFinish() {
-                synchronized (disposableSet) {
-                    disposableSet.remove(this);
-                }
-            }
-        }, delay, unit);
-        return disposable;
+        return schedule(run, 0, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public Disposable schedulePeriodically(Runnable run, long initialDelay, long period, TimeUnit unit) {
-        Disposable disposable = delayScheduler.schedulePeriodicallyDirect(new DisposableTask(run) {
+    public Disposable schedule(Runnable task, long delay, TimeUnit unit) {
+        return delayWorker.schedule(new Runnable() {
             @Override
             public void run() {
-                WorkerImpl.this.schedule(run);
+                executeTask(task);
             }
-            
+        }, delay, unit);
+    }
+
+    @Override
+    public Disposable schedulePeriodically(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        return delayWorker.schedulePeriodically(new Runnable() {
             @Override
-            public void onFinish() {
-                synchronized (disposableSet) {
-                    disposableSet.remove(this);
-                }
+            public void run() {
+                executeTask(task);
             }
         }, initialDelay, period, unit);
-        return disposable;
+    }
+
+    private void executeTask(Runnable task) {
+        executor.execute(new ExclusiveRunnable() {
+            @Override
+            public String getScope() {
+                return scope;
+            }
+
+            @Override
+            public boolean isExclusive() {
+                return exclusive;
+            }
+
+            @Override
+            public void run() {
+                task.run();
+            }
+        });
     }
 
     @Override
     public void dispose() {
-        synchronized (disposableSet) {
-            for (Disposable disposable : disposableSet) {
-                disposable.dispose();
-            }
-            disposableSet.clear();
-        }
-        dispose.lazySet(true);
+        delayWorker.dispose();
     }
 
     @Override
     public boolean isDisposed() {
-        return dispose.get();
+        return delayWorker.isDisposed();
     }
 }

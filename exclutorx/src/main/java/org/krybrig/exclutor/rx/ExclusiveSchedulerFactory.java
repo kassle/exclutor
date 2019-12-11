@@ -13,24 +13,26 @@ import org.krybrig.exclutor.ExclusiveExecutorFactory;
  * @author kassle
  */
 public class ExclusiveSchedulerFactory {
-    private final Scheduler delayScheduler;
-    private final Executor executor;
+    private final WorkerFactory workerFactory;
 
     public ExclusiveSchedulerFactory(int maxThread) {
         this(maxThread, Executors.defaultThreadFactory());
     }
     
     public ExclusiveSchedulerFactory(int maxThread, ThreadFactory threadFactory) {
-        this(Schedulers.single(),
+        this(Schedulers.from(Executors.newSingleThreadScheduledExecutor()),
                 ExclusiveExecutorFactory.create(maxThread, threadFactory, new LinkedBlockingQueue<>()));
     }
     
     ExclusiveSchedulerFactory(Scheduler delayScheduler, Executor executor) {
-        this.delayScheduler = delayScheduler;
-        this.executor = executor;
+        this(new WorkerFactory(delayScheduler, executor));
+    }
+
+    ExclusiveSchedulerFactory(WorkerFactory workerFactory) {
+        this.workerFactory = workerFactory;
     }
     
-    public Scheduler createScheduler(String scope, boolean isExclusive) {
-        return new SchedulerImpl(delayScheduler, executor, isExclusive, scope);
+    public Scheduler createScheduler(String scope, boolean exclusive) {
+        return new SchedulerImpl(workerFactory, exclusive, scope);
     }
 }
