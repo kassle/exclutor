@@ -11,6 +11,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <scm>
+        <connection>scm:git:https://github.com/kassle/exclutor.git</connection>
+        <developerConnection>scm:git:git@github.com:kassle/exclutor.git</developerConnection>
+        <url>https://github.com/kassle/exclutor</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <modules>
         <module>exclutor</module>
