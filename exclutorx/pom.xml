@@ -44,14 +44,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.krybrig</groupId>
-            <artifactId>exclutor</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.reactivex.rxjava2</groupId>
             <artifactId>rxjava</artifactId>
             <version>2.2.15</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>exclutor</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
