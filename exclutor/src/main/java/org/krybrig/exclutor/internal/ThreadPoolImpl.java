@@ -23,39 +23,33 @@ class ThreadPoolImpl implements ThreadPool, WorkerListener {
     }
 
     @Override
-    public void onTaskAdded() {
+    public synchronized void onTaskAdded() {
         taskCounter.getAndIncrement();
         startNewThread();
     }
 
     @Override
-    public int getRemainingTask() {
+    public synchronized int getRemainingTask() {
         return taskCounter.get();
     }
 
     @Override
-    public int getThreadNumber() {
-        synchronized (threadCounter) {
-            return threadCounter.get();
-        }
+    public synchronized int getThreadNumber() {
+        return threadCounter.get();
     }
 
     @Override
-    public void onFinish() {
-        synchronized (threadCounter) {
-            threadCounter.getAndDecrement();
-            startNewThread();
-        }
+    public synchronized void onFinish() {
+        threadCounter.getAndDecrement();
+        startNewThread();
     }
 
     private void startNewThread() {
-        synchronized (threadCounter) {
-            if (taskCounter.get() > 0 && threadCounter.get() < maxThread) {
-                Thread thread = threadFactory.newThread(workerFactory.create(this));
-                threadCounter.getAndIncrement();
-                taskCounter.getAndDecrement();
-                thread.start();
-            }
+        if (taskCounter.get() > 0 && threadCounter.get() < maxThread) {
+            Thread thread = threadFactory.newThread(workerFactory.create(this));
+            threadCounter.getAndIncrement();
+            taskCounter.getAndDecrement();
+            thread.start();
         }
     }
 }

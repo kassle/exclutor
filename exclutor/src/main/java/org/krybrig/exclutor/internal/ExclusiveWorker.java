@@ -24,16 +24,17 @@ class ExclusiveWorker implements Runnable {
     public void run() {
         Runnable runnable;
         Lock lock;
-        
+
         synchronized (queue) {
             runnable = queue.poll();
-            if (runnable != null) {
-                lock = getLock(runnable);
-                lock.lock();
-            } else {
-                listener.onFinish();
-                return;
-            }
+        }
+
+        if (runnable != null) {
+            lock = getLock(runnable);
+            lock.lock();
+        } else {
+            listener.onFinish();
+            return;
         }
 
         if (!isExclusive(runnable)) {
@@ -55,13 +56,12 @@ class ExclusiveWorker implements Runnable {
             Lock lock = lockBox.getLock(((ExclusiveRunnable) runnable).getScope());
             return lock;
         } else {
-            System.out.println(runnable.getClass().getName());
             return new DummyLock();
         }
     }
-    
+
     private boolean isExclusive(Runnable runnable) {
-        return (runnable instanceof ExclusiveRunnable) &&
-                ((ExclusiveRunnable) runnable).isExclusive();
+        return (runnable instanceof ExclusiveRunnable)
+                && ((ExclusiveRunnable) runnable).isExclusive();
     }
 }

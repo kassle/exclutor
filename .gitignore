@@ -1,4 +1,8 @@
-/nbproject/
-/target/
-pom.xml.releaseBackup
-release.properties
+/exclutor/target/
+/exclutor/nbproject/
+/exclutor/pom.xml.releaseBackup
+/exclutor/release.properties
+/exclutorx/target/
+/exclutorx/nbproject/
+/exclutorx/pom.xml.releaseBackup
+/exclutorx/release.properties

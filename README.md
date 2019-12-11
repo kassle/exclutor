@@ -10,7 +10,8 @@ and the next read process will on hold till the write process finish.
 # Status
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
-[ ![Download](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
+[ ![exclutor](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
+[ ![exclutoRx](https://api.bintray.com/packages/kassle/oss/exclutorx/images/download.svg) ](https://bintray.com/kassle/oss/exclutorx/_latestVersion)
 
 ## Usage:
 
@@ -25,6 +26,11 @@ and the next read process will on hold till the write process finish.
         <artifactId>exclutor</artifactId>
         <version>1.0.0</version>
     </dependency>
+    <dependency>
+        <groupId>org.krybrig</groupId>
+        <artifactId>exclutorx</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 </dependencies>
 ```
 
@@ -32,9 +38,13 @@ and the next read process will on hold till the write process finish.
 
 ```
 implementation 'org.krybrig:exclutor:1.0.0'
+implementation 'org.krybrig:exclutorx:1.0.0'
 ```
 
 ### Code
+
+#### Java Executor
+
 ```java
 String scope = "db.table.users";
 Executor executor = ExclusiveExecutorFactory.create(Runtime.getRuntime().availableProcessors());
@@ -50,4 +60,26 @@ executor.execute(new AbstractExclusiveRunnable(scope, false) {
         // select from database
     }
 });
+```
+
+#### RxJava2
+
+```java
+ExclusiveSchedulerFactory schedulerFactory = new ExclusiveSchedulerFactory(Runtime.getRuntime().availableProcessors());
+Flowable.range(0, 100)
+    .observeOn(schedulerFactory.createScheduler(scope, false))
+    .doOnNext(new Consumer<Integer>() {
+        @Override
+        public void accept(Integer index) throws Exception {
+            // select from db
+        }
+    })
+    .observeOn(schedulerFactory.createScheduler(scope, true))
+    .doOnNext(new Consumer<Integer>() {
+        @Override
+        public void accept(Integer index) throws Exception {
+            // insert to db
+        }
+    })
+    .subscribe();
 ```
