@@ -24,7 +24,7 @@ and the next read process will on hold till the write process finish.
     <dependency>
         <groupId>org.krybrig</groupId>
         <artifactId>exclutor</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
     <dependency>
         <groupId>org.krybrig</groupId>
@@ -37,7 +37,7 @@ and the next read process will on hold till the write process finish.
 #### gradle
 
 ```
-implementation 'org.krybrig:exclutor:1.0.0'
+implementation 'org.krybrig:exclutor:1.0.1'
 implementation 'org.krybrig:exclutorx:1.0.0'
 ```
 
