@@ -38,8 +38,8 @@ and the next read process will on hold till the write process finish.
 #### gradle
 
 ```
-implementation 'org.krybrig:exclutor:1.0.1'
-implementation 'org.krybrig:exclutorx:1.0.0'
+compile 'org.krybrig:exclutor-core:1.0.1'
+compile 'org.krybrig:exclutor-rx:1.0.1'
 ```
 
 ### Code
