@@ -11,7 +11,6 @@ and the next read process will on hold till the write process finish.
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
 [ ![exclutor](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
-[ ![exclutoRx](https://api.bintray.com/packages/kassle/oss/exclutorx/images/download.svg) ](https://bintray.com/kassle/oss/exclutorx/_latestVersion)
 
 ## Usage:
 
@@ -22,14 +21,16 @@ and the next read process will on hold till the write process finish.
 ```
 <dependencies>
     <dependency>
-        <groupId>org.krybrig</groupId>
-        <artifactId>exclutor</artifactId>
-        <version>1.0.0</version>
+	<groupId>org.krybrig</groupId>
+	<artifactId>exclutor-core</artifactId>
+	<version>1.0.1</version>
+	<type>pom</type>
     </dependency>
     <dependency>
-        <groupId>org.krybrig</groupId>
-        <artifactId>exclutorx</artifactId>
-        <version>1.0.0</version>
+	<groupId>org.krybrig</groupId>
+	<artifactId>exclutor-rx</artifactId>
+	<version>1.0.1</version>
+	<type>pom</type>
     </dependency>
 </dependencies>
 ```
@@ -37,8 +38,8 @@ and the next read process will on hold till the write process finish.
 #### gradle
 
 ```
-implementation 'org.krybrig:exclutor:1.0.0'
-implementation 'org.krybrig:exclutorx:1.0.0'
+compile 'org.krybrig:exclutor-core:1.0.1'
+compile 'org.krybrig:exclutor-rx:1.0.1'
 ```
 
 ### Code
