@@ -22,14 +22,14 @@ and the next read process will on hold till the write process finish.
 ```
 <dependencies>
     <dependency>
-        <groupId>org.krybrig</groupId>
-        <artifactId>exclutor</artifactId>
-        <version>1.0.1</version>
+        <groupId>org.krybrig.exclutor</groupId>
+        <artifactId>exclutor-core</artifactId>
+        <version>1.0.2</version>
     </dependency>
     <dependency>
-        <groupId>org.krybrig</groupId>
-        <artifactId>exclutorx</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.krybrig.exclutor</groupId>
+        <artifactId>exclutor-rx</artifactId>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 ```
