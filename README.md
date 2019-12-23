@@ -11,7 +11,6 @@ and the next read process will on hold till the write process finish.
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
 [ ![exclutor](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
-[ ![exclutoRx](https://api.bintray.com/packages/kassle/oss/exclutorx/images/download.svg) ](https://bintray.com/kassle/oss/exclutorx/_latestVersion)
 
 ## Usage:
 
@@ -22,14 +21,16 @@ and the next read process will on hold till the write process finish.
 ```
 <dependencies>
     <dependency>
-        <groupId>org.krybrig.exclutor</groupId>
-        <artifactId>exclutor-core</artifactId>
-        <version>1.0.2</version>
+	<groupId>org.krybrig</groupId>
+	<artifactId>exclutor-core</artifactId>
+	<version>1.0.1</version>
+	<type>pom</type>
     </dependency>
     <dependency>
-        <groupId>org.krybrig.exclutor</groupId>
-        <artifactId>exclutor-rx</artifactId>
-        <version>1.0.2</version>
+	<groupId>org.krybrig</groupId>
+	<artifactId>exclutor-rx</artifactId>
+	<version>1.0.1</version>
+	<type>pom</type>
     </dependency>
 </dependencies>
 ```
