@@ -1,6 +1,3 @@
 coverage:
     range: 75..95
     round: down
-
-ignore:
-    - core/src/main/java/org/krybrig/exclutor/internal/DummyLock.java
