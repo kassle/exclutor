@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 env:
-    CODECOV_TOKEN: ${{ secrets.CodeCov }}
+    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 jobs:
     build:
@@ -19,4 +19,4 @@ jobs:
         - name: Report - Code Coverage
           run: mvn cobertura:cobertura
         - name: Upload Report - Codecov
-          run: echo $CODECOV_TOKEN
+          run: bash <(curl -s https://codecov.io/bash)
