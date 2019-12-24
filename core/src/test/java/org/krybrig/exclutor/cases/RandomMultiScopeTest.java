@@ -40,7 +40,7 @@ public class RandomMultiScopeTest {
             executor.execute(new Task(item, itemList));
         }
         
-        Thread.sleep(15000);
+        Thread.sleep(20000);
         
         assertEquals(taskCount, itemList.size());
         
