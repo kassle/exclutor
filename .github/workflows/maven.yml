@@ -20,6 +20,4 @@ jobs:
     - name: Upload Report - Codecov
       env:
           CODECOV_TOKEN = ${{ secrets.CODECOV_TOKEN }}
-      with:
-          token = ${{ secrets.CODECOV_TOKEN }}
       run: bash <(curl -s https://codecov.io/bash)
