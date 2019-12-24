@@ -18,6 +18,6 @@ jobs:
     - name: Report - Code Coverage
       run: mvn cobertura:cobertura
     - name: Upload Report - Codecov
-      env:
+      with:
           CODECOV_TOKEN = ${{ secrets.CODECOV_TOKEN }}
       run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
