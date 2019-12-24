@@ -11,6 +11,7 @@ and the next read process will on hold till the write process finish.
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
 [ ![exclutor](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
+[![codecov](https://codecov.io/gh/kassle/exclutor/branch/master/graph/badge.svg)](https://codecov.io/gh/kassle/exclutor)
 
 ## Usage:
 
