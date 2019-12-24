@@ -90,7 +90,7 @@ public class WorkerImplTest {
     }
 
     @Test
-    public void onTaskExecuteShouldExecuteUsingExecutor() {
+    public void onTaskExecuteViaScheduleShouldExecuteUsingExecutor() {
         long delay = 5L;
         TimeUnit unit = TimeUnit.DAYS;
         Runnable run = EasyMock.createMock(Runnable.class);
@@ -103,6 +103,46 @@ public class WorkerImplTest {
         EasyMock.replay(delayWorker);
         
         worker.schedule(run, delay, unit);
+        List<Runnable> subRunList = subRunCapture.getValues();
+        
+        assertEquals(1, subRunList.size());
+        Runnable subRun = subRunList.get(0);
+        
+        Capture<ExclusiveRunnable> exRunCapture = EasyMock.newCapture(CaptureType.ALL);
+        executor.execute(EasyMock.capture(exRunCapture));
+        EasyMock.replay(executor);
+        
+        subRun.run();
+
+        List<ExclusiveRunnable> exRunList = exRunCapture.getValues();
+        assertEquals(1, exRunList.size());
+        
+        ExclusiveRunnable exRun = exRunList.get(0);
+        assertEquals(scope, exRun.getScope());
+        assertEquals(exclusive, exRun.isExclusive());
+        
+        run.run();
+        EasyMock.replay(run);
+        
+        exRun.run();
+        
+        EasyMock.verify(run);
+    }
+    
+    @Test
+    public void onTaskExecuteViaSchedulePeriodicallyShouldExecuteUsingExecutor() {
+        long delay = 5L;
+        TimeUnit unit = TimeUnit.DAYS;
+        Runnable run = EasyMock.createMock(Runnable.class);
+        Disposable disposable = EasyMock.createMock(Disposable.class);
+        Capture<Runnable> subRunCapture = EasyMock.newCapture(CaptureType.ALL);
+        
+        EasyMock.expect(delayWorker.schedulePeriodically(EasyMock.capture(subRunCapture),
+                EasyMock.eq(delay), EasyMock.eq(delay), EasyMock.same(unit)))
+                .andReturn(disposable);
+        EasyMock.replay(delayWorker);
+        
+        worker.schedulePeriodically(run, delay, delay, unit);
         List<Runnable> subRunList = subRunCapture.getValues();
         
         assertEquals(1, subRunList.size());
