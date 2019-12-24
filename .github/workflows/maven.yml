@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 env:
-    CODECOV_TOKEN = ${{ secrets.CodeCov }}
+    CODECOV_TOKEN: ${{ secrets.CodeCov }}
 
 jobs:
     build:
