@@ -14,6 +14,16 @@ import static org.junit.Assert.*;
 public class ExclusiveExecutorFactoryTest {
     
     @Test
+    public void createWithParamMaxThreadShouldReturnNewObject() {
+        Executor executor1 = ExclusiveExecutorFactory.create(2);
+        Executor executor2 = ExclusiveExecutorFactory.create(2);
+        
+        assertNotNull(executor1);
+        assertNotNull(executor2);
+        assertNotSame(executor1, executor2);
+    }
+    
+    @Test
     public void createShouldReturnNewObject() {
         Queue<Runnable> queue = EasyMock.createMock(Queue.class);
         ThreadFactory threadFactory = EasyMock.createMock(ThreadFactory.class);
