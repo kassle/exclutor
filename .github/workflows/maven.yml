@@ -2,20 +2,21 @@ name: Build
 
 on: [push]
 
+env:
+    CODECOV_TOKEN = ${{ secrets.CodeCov }}
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build
-      run: mvn clean compile test
-    - name: Report - Code Coverage
-      run: mvn cobertura:cobertura
-    - name: Upload Report - Codecov
-      run: echo $CODECOV_TOKEN
-      env:
-        CODECOV_TOKEN = ${{ secrets.CodeCov }}
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up JDK 1.8
+            uses: actions/setup-java@v1
+            with:
+                java-version: 1.8
+        - name: Build
+            run: mvn clean compile test
+        - name: Report - Code Coverage
+            run: mvn cobertura:cobertura
+        - name: Upload Report - Codecov
+            run: echo $CODECOV_TOKEN
