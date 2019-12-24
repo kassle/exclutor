@@ -27,14 +27,13 @@ class ExclusiveWorker implements Runnable {
 
         synchronized (queue) {
             runnable = queue.poll();
-        }
-
-        if (runnable != null) {
-            lock = getLock(runnable);
-            lock.lock();
-        } else {
-            listener.onFinish();
-            return;
+            if (runnable != null) {
+                lock = getLock(runnable);
+                lock.lock();
+            } else {
+                listener.onFinish();
+                return;
+            }
         }
 
         if (!isExclusive(runnable)) {

@@ -41,12 +41,7 @@ public class MultiScopeTest {
     public void testAsyncWithMultiScope() throws InterruptedException {
         String scopePrefix = "scope-";
         int start = 0;
-        /*
-         * known issue:
-         * the following test can be fail, and it should be fixed.
-         * currently the count value is lowered just to make this feature releaseable
-         */
-        int count = 10;
+        int count = 1000;
         int segmentNum = 5;
 
         List<Item> result = Flowable.range(start, count)
