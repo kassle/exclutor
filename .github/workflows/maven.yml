@@ -18,6 +18,9 @@ jobs:
     - name: Report - Code Coverage
       run: mvn cobertura:cobertura
     - name: Upload Report - Codecov
+      uses: actions/checkout@v1
       with:
-          CODECOV_TOKEN = ${{ secrets.CODECOV_TOKEN }}
-      run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+          CODECOV_TOKEN_WITH = ${{ secrets.CODECOV_TOKEN }}
+      env:
+          CODECOV_TOKEN_ENV = ${{ secrets.CODECOV_TOKEN }}
+      run: echo $CODECOV_TOKEN_WITH = $CODECOV_TOKEN_ENV
