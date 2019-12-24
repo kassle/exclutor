@@ -43,7 +43,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>exclutor-core</artifactId>
-            <version>1.0.1</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
