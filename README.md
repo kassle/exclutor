@@ -24,13 +24,13 @@ and the next read process will on hold till the write process finish.
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<type>pom</type>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<type>pom</type>
     </dependency>
 </dependencies>
@@ -39,8 +39,8 @@ and the next read process will on hold till the write process finish.
 #### gradle
 
 ```
-compile 'org.krybrig:exclutor-core:1.0.1'
-compile 'org.krybrig:exclutor-rx:1.0.1'
+compile 'org.krybrig:exclutor-core:1.0.2'
+compile 'org.krybrig:exclutor-rx:1.0.2'
 ```
 
 ### Code
