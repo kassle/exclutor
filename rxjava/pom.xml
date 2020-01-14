@@ -4,10 +4,10 @@
     <parent>
         <groupId>org.krybrig</groupId>
         <artifactId>exclutor</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
     <artifactId>exclutor-rx</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>bundle</packaging>
     
     <properties>
@@ -56,7 +56,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package >org.krybrig.exclutor.rx</Export-Package>
+                        <Export-Package>org.krybrig.exclutor.rx</Export-Package>
                         <Private-Package>org.krybrig.exclutor.rx.*</Private-Package>
                     </instructions>
                 </configuration>
