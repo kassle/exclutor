@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.krybrig</groupId>
         <artifactId>exclutor</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <artifactId>exclutor-rx</artifactId>
     <version>1.0.3-SNAPSHOT</version>
