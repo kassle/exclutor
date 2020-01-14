@@ -7,7 +7,7 @@ we need multiple asynchronous process to read data from database,
 but only one asynchronouse process for write data to database
 and the next read process will on hold till the write process finish.
 
-![][assets/illustration.png]
+![](assets/illustration.png)
 
 # Status
 
