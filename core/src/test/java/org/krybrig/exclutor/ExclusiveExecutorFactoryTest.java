@@ -2,6 +2,7 @@ package org.krybrig.exclutor;
 
 import java.util.Queue;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 import org.easymock.EasyMock;
 import org.junit.Test;
@@ -34,6 +35,29 @@ public class ExclusiveExecutorFactoryTest {
         assertNotNull(executor1);
         assertNotNull(executor2);
         assertNotSame(executor1, executor2);
+    }
+    
+    @Test
+    public void createExecutorServiceWithParamMaxThreadShouldReturnNewObject() {
+        ExecutorService service1 = ExclusiveExecutorFactory.createExecutorService(2);
+        ExecutorService service2 = ExclusiveExecutorFactory.createExecutorService(2);
+        
+        assertNotNull(service1);
+        assertNotNull(service2);
+        assertNotSame(service1, service2);
+    }
+    
+    @Test
+    public void createExecutorServiceShouldReturnNewObject() {
+        Queue<Runnable> queue = EasyMock.createMock(Queue.class);
+        ThreadFactory threadFactory = EasyMock.createMock(ThreadFactory.class);
+        
+        ExecutorService service1 = ExclusiveExecutorFactory.createExecutorService(1, threadFactory, queue);
+        ExecutorService service2 = ExclusiveExecutorFactory.createExecutorService(1, threadFactory, queue);
+        
+        assertNotNull(service1);
+        assertNotNull(service2);
+        assertNotSame(service1, service2);
     }
     
     @Test (expected = IllegalArgumentException.class)
