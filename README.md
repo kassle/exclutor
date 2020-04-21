@@ -66,6 +66,25 @@ executor.execute(new AbstractExclusiveRunnable(scope, false) {
 });
 ```
 
+#### Java Executor Service
+
+```java
+String scope = "db.table.users";
+ExecutorService service = ExclusiveExecutorFactory.createExecutorService(Runtime.getRuntime().availableProcessors());
+service.submit(new AbstractExclusiveRunnable(scope, true) {
+    @Override
+    public void run() {
+        // insert to database
+    }
+});
+service.submit(new AbstractExclusiveRunnable(scope, false) {
+    @Override
+    public void run() {
+        // select from database
+    }
+});
+```
+
 #### RxJava2
 
 ```java
