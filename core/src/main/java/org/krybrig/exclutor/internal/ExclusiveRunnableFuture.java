@@ -6,10 +6,10 @@ import org.krybrig.exclutor.ExclusiveRunnable;
  *
  * @author kassle
  */
-public class ExclusiveRunnableFuture<V> extends RunnableFuture<V> implements ExclusiveRunnable {
+class ExclusiveRunnableFuture<V> extends RunnableFuture<V> implements ExclusiveRunnable {
     private final ExclusiveRunnable delegate;
 
-    public ExclusiveRunnableFuture(ExclusiveRunnable delegate) {
+    ExclusiveRunnableFuture(ExclusiveRunnable delegate) {
         super(delegate);
         this.delegate = delegate;
     }
@@ -22,5 +22,5 @@ public class ExclusiveRunnableFuture<V> extends RunnableFuture<V> implements Exc
     @Override
     public boolean isExclusive() {
         return delegate.isExclusive();
-    }    
+    }
 }

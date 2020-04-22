@@ -107,4 +107,11 @@ public class RunnableFutureTest {
     public void getWithTimeOutShouldReturnNull() throws InterruptedException, ExecutionException, TimeoutException {
         assertEquals(null, future.get(1, TimeUnit.MINUTES));
     }
+    
+    @Test
+    public void getDelegateShouldReturnDelegatedRunnable() {
+        Runnable result = future.getDelegate();
+        
+        assertSame(delegate, result);
+    }
 }

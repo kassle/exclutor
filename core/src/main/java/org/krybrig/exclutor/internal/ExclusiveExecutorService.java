@@ -49,9 +49,12 @@ public class ExclusiveExecutorService implements ExecutorService {
         Runnable runnable = queue.poll();
         while (runnable != null) {
             if (runnable instanceof RunnableFuture) {
-                ((RunnableFuture) runnable).cancel(true);
+                RunnableFuture future = (RunnableFuture) runnable;
+                future.cancel(true);
+                taskList.add(future.getDelegate());
+            } else {
+                taskList.add(runnable);
             }
-            taskList.add(runnable);
             
             runnable = queue.poll();
         }

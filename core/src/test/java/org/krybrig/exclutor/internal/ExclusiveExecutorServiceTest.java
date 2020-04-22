@@ -3,7 +3,6 @@ package org.krybrig.exclutor.internal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -94,26 +93,32 @@ public class ExclusiveExecutorServiceTest {
     
     @Test
     public void shutdownShouldCancelAllTaskInQueue() {
-        RunnableFuture task1 = EasyMock.createMock(RunnableFuture.class);
-        EasyMock.expect(task1.cancel(true)).andReturn(Boolean.TRUE);
+        Runnable task1 = EasyMock.createMock(Runnable.class);
+        RunnableFuture future1 = EasyMock.createMock(RunnableFuture.class);
+        EasyMock.expect(future1.getDelegate()).andReturn(task1);
+        EasyMock.expect(future1.cancel(true)).andReturn(Boolean.TRUE);
         
-        RunnableFuture task2 = EasyMock.createMock(RunnableFuture.class);
-        EasyMock.expect(task2.cancel(true)).andReturn(Boolean.TRUE);
+        Runnable task2 = EasyMock.createMock(Runnable.class);
+        RunnableFuture future2 = EasyMock.createMock(RunnableFuture.class);
+        EasyMock.expect(future2.getDelegate()).andReturn(task2);
+        EasyMock.expect(future2.cancel(true)).andReturn(Boolean.TRUE);
         
-        RunnableFuture task3 = EasyMock.createMock(RunnableFuture.class);
-        EasyMock.expect(task3.cancel(true)).andReturn(Boolean.TRUE);
+        Runnable task3 = EasyMock.createMock(Runnable.class);
+        RunnableFuture future3 = EasyMock.createMock(RunnableFuture.class);
+        EasyMock.expect(future3.getDelegate()).andReturn(task3);
+        EasyMock.expect(future3.cancel(true)).andReturn(Boolean.TRUE);
         
         EasyMock.expect(queue.poll())
-                .andReturn(task1)
-                .andReturn(task2)
-                .andReturn(task3)
+                .andReturn(future1)
+                .andReturn(future2)
+                .andReturn(future3)
                 .andReturn(null);
         
-        EasyMock.replay(queue, task1, task2, task3);
+        EasyMock.replay(queue, future1, future2, future3);
         
         service.shutdown();
         
-        EasyMock.verify(queue, task1, task2, task3);
+        EasyMock.verify(queue, future1, future2, future3);
     }
     
     @Test
@@ -129,27 +134,31 @@ public class ExclusiveExecutorServiceTest {
     
     @Test
     public void shutdownNowShouldReturnAllNotExecutedTask() {
-        RunnableFuture task1 = EasyMock.createMock(RunnableFuture.class);
-        EasyMock.expect(task1.cancel(true)).andReturn(Boolean.TRUE);
+        Runnable task1 = EasyMock.createMock(Runnable.class);
+        RunnableFuture future1 = EasyMock.createMock(RunnableFuture.class);
+        EasyMock.expect(future1.getDelegate()).andReturn(task1);
+        EasyMock.expect(future1.cancel(true)).andReturn(Boolean.TRUE);
         
         Runnable task2 = EasyMock.createMock(Runnable.class);
         
-        RunnableFuture task3 = EasyMock.createMock(RunnableFuture.class);
-        EasyMock.expect(task3.cancel(true)).andReturn(Boolean.TRUE);
+        Runnable task3 = EasyMock.createMock(Runnable.class);
+        RunnableFuture future3 = EasyMock.createMock(RunnableFuture.class);
+        EasyMock.expect(future3.getDelegate()).andReturn(task3);
+        EasyMock.expect(future3.cancel(true)).andReturn(Boolean.TRUE);
         
         Runnable[] expectArray = { task1, task2, task3 };
         
         EasyMock.expect(queue.poll())
-                .andReturn(task1)
+                .andReturn(future1)
                 .andReturn(task2)
-                .andReturn(task3)
+                .andReturn(future3)
                 .andReturn(null);
         
-        EasyMock.replay(queue, task1, task2, task3);
+        EasyMock.replay(queue, future1, task2, future3);
         
         List<Runnable> taskList = service.shutdownNow();
         
-        EasyMock.verify(queue, task1, task2, task3);
+        EasyMock.verify(queue, future1, task2, future3);
         assertEquals(true, service.isShutdown());
         assertArrayEquals( expectArray, taskList.toArray());
     }
@@ -173,8 +182,10 @@ public class ExclusiveExecutorServiceTest {
     
     @Test
     public void awaitTerminationShouldWaitUntilExecutorServiceFinished() throws InterruptedException {
-        RunnableFuture task = EasyMock.mock(RunnableFuture.class);
-        EasyMock.expect(task.cancel(true)).andAnswer(new IAnswer<Boolean>() {
+        Runnable task = EasyMock.mock(Runnable.class);
+        RunnableFuture future = EasyMock.mock(RunnableFuture.class);
+        EasyMock.expect(future.getDelegate()).andReturn(task);
+        EasyMock.expect(future.cancel(true)).andAnswer(new IAnswer<Boolean>() {
             @Override
             public Boolean answer() throws Throwable {
                 Thread.sleep(10);
@@ -182,9 +193,9 @@ public class ExclusiveExecutorServiceTest {
             }
         });
         
-        EasyMock.expect(queue.poll()).andReturn(task).andReturn(null);
+        EasyMock.expect(queue.poll()).andReturn(future).andReturn(null);
         EasyMock.expect(queue.isEmpty()).andReturn(true);
-        EasyMock.replay(task, queue);
+        EasyMock.replay(future, queue);
         
         new Thread(new Runnable() {
             @Override
@@ -195,7 +206,7 @@ public class ExclusiveExecutorServiceTest {
         
         boolean result = service.awaitTermination(100, TimeUnit.SECONDS);
         
-        EasyMock.verify(task, queue);
+        EasyMock.verify(future, queue);
         assertEquals(true, result);
     }
     
