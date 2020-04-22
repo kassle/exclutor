@@ -27,13 +27,11 @@ and the next read process will on hold till the write process finish.
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
 	<version>1.1.0</version>
-	<type>pom</type>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
 	<version>1.1.0</version>
-	<type>pom</type>
     </dependency>
 </dependencies>
 ```
