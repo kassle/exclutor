@@ -22,7 +22,7 @@ and the next read process will on hold till the write process finish.
 
 #### maven
 
-```
+```xml
 <dependencies>
     <dependency>
 	<groupId>org.krybrig</groupId>
@@ -39,7 +39,7 @@ and the next read process will on hold till the write process finish.
 
 #### gradle
 
-```
+```gradle
 compile 'org.krybrig:exclutor-core:1.1.0'
 compile 'org.krybrig:exclutor-rx:1.1.0'
 ```
