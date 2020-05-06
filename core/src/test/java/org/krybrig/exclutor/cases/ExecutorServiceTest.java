@@ -19,7 +19,7 @@ public class ExecutorServiceTest {
     private ExecutorService service;
     
     @Before
-    public void setup() {
+    public void setUp() {
         service = ExclusiveExecutorFactory.createExecutorService(MAX_THREAD);
     }
     
