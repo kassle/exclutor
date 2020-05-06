@@ -4,9 +4,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -46,6 +47,7 @@ public class RunnableFutureTest {
         future.cancel(true);
         future.run();
         
+        assertEquals(true, future.isCancelled());
         EasyMock.verify(delegate);
     }
     

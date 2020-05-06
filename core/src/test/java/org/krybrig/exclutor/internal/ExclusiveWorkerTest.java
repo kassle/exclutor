@@ -3,6 +3,7 @@ package org.krybrig.exclutor.internal;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import org.easymock.EasyMock;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.krybrig.exclutor.ExclusiveRunnable;
@@ -123,7 +124,9 @@ public class ExclusiveWorkerTest {
         
         try {
             worker.run();
-        } catch (RuntimeException ex) { }
+        } catch (RuntimeException ex) {
+            fail(ex.getMessage());
+        }
         
         EasyMock.verify(lock);
         EasyMock.verify(listener);
