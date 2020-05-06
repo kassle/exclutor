@@ -11,7 +11,7 @@ class SchedulerImpl extends Scheduler {
     private final boolean exclusive;
     private final String scope;
 
-    SchedulerImpl(WorkerFactory workerFactory, boolean exclusive, String scope) {
+    protected SchedulerImpl(WorkerFactory workerFactory, boolean exclusive, String scope) {
         this.workerFactory = workerFactory;
         this.exclusive = exclusive;
         this.scope = scope;

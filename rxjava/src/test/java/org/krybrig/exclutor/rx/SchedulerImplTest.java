@@ -2,9 +2,9 @@ package org.krybrig.exclutor.rx;
 
 import io.reactivex.Scheduler;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

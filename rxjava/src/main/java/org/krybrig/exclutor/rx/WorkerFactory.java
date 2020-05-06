@@ -16,7 +16,7 @@ class WorkerFactory {
         this.executor = executor;
     }
     
-    Scheduler.Worker create(String scope, boolean exclusive) {
+    protected Scheduler.Worker create(String scope, boolean exclusive) {
         return new WorkerImpl(delayScheduler.createWorker(), executor, exclusive, scope);
     }
 }

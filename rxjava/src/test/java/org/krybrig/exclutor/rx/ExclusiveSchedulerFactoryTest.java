@@ -2,8 +2,10 @@ package org.krybrig.exclutor.rx;
 
 import io.reactivex.Scheduler;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
 
 /**
@@ -11,12 +13,11 @@ import org.junit.Before;
  * @author kassle
  */
 public class ExclusiveSchedulerFactoryTest {
-    private WorkerFactory workerFactory;
     private ExclusiveSchedulerFactory schedulerFactory;
     
     @Before
     public void setUp() {
-        workerFactory = EasyMock.createMock(WorkerFactory.class);
+        WorkerFactory workerFactory = EasyMock.createMock(WorkerFactory.class);
         schedulerFactory = new ExclusiveSchedulerFactory(workerFactory);
     }
     

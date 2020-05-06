@@ -5,8 +5,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -6,9 +6,10 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.rx.ExclusiveSchedulerFactory;
 import org.reactivestreams.Publisher;
 
@@ -47,8 +48,8 @@ public class MultiScopeTest {
         List<Item> result = Flowable.range(start, count)
                 .flatMap(new Function<Integer, Publisher<Item>>() {
                     @Override
-                    public Publisher<Item> apply(Integer value) throws Exception {
-                        int segment = (value % segmentNum);
+                    public Publisher<Item> apply(final Integer index) throws Exception {
+                        int segment = (index % segmentNum);
                         boolean exclusive = (segment == 0);
                         int delay = 0;
                         if (exclusive) {
@@ -62,7 +63,7 @@ public class MultiScopeTest {
                                     @Override
                                     public Item apply(Integer delay) throws Exception {
                                         Item item = new Item();
-                                        item.value = value;
+                                        item.value = index;
                                         item.threadName = Thread.currentThread().getName();
                                         item.exclusive = exclusive;
                                         item.scope = scope;
@@ -94,7 +95,7 @@ public class MultiScopeTest {
                 } else if (!item.exclusive) {
                     prev = item;
                 } else {
-                    assertFalse("[" + scope + "] found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")", true);
+                    fail("[" + scope + "] found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")");
                 }
 
                 assertEquals(true, item.threadName.startsWith(threadName));
