@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
+import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
@@ -49,7 +50,7 @@ public class SingleScopeTest {
             } else if (!item.exclusive) {
                 prev = item;
             } else {
-                assertFalse("found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")", true);
+                Assert.fail("found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")");
             }
         }
     }
@@ -88,7 +89,6 @@ public class SingleScopeTest {
 
             Item item = new Item();
             item.value = id;
-            item.threadName = Thread.currentThread().getName();
             item.exclusive = isExclusive();
 
             resultList.add(item);
@@ -97,8 +97,7 @@ public class SingleScopeTest {
 
     private static class Item {
 
-        int value;
-        String threadName;
-        boolean exclusive;
+        private int value;
+        private boolean exclusive;
     }
 }

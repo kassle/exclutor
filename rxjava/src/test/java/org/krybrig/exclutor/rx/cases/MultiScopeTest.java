@@ -104,9 +104,9 @@ public class MultiScopeTest {
 
     private static class Item {
 
-        int value;
-        String scope;
-        String threadName;
-        boolean exclusive;
+        private int value;
+        private String scope;
+        private String threadName;
+        private boolean exclusive;
     }
 }

@@ -2,9 +2,9 @@ package org.krybrig.exclutor.internal;
 
 import java.util.concurrent.ThreadFactory;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -23,12 +23,13 @@ public class ExclusiveSchedulerFactoryTest {
     @Test
     public void createFactoryInstanceWithMaxThreadShouldNotThrowAnyException() {
         ExclusiveSchedulerFactory factory = new ExclusiveSchedulerFactory(1);
-        assertTrue(true);
+        assertNotNull(factory);
     }
     
     @Test (expected = IllegalArgumentException.class)
     public void createFactoryInstanceWithZeroMaxThreadShouldThrowIllegalArgumentException() {
         ExclusiveSchedulerFactory factory = new ExclusiveSchedulerFactory(0);
+        assertNotNull(factory);
     }
     
     @Test

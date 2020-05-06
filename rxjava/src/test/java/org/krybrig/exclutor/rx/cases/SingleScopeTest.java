@@ -6,9 +6,10 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.rx.ExclusiveSchedulerFactory;
 import org.reactivestreams.Publisher;
 
@@ -82,7 +83,7 @@ public class SingleScopeTest {
             } else if (!item.exclusive) {
                 prev = item;
             } else {
-                assertFalse("found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")", true);
+                fail("found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")");
             }
 
             assertEquals(true, item.threadName.startsWith(scope));
@@ -91,8 +92,8 @@ public class SingleScopeTest {
 
     private static class Item {
 
-        int value;
-        String threadName;
-        boolean exclusive;
+        private int value;
+        private String threadName;
+        private boolean exclusive;
     }
 }

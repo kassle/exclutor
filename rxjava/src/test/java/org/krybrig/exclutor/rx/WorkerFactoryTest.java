@@ -13,13 +13,12 @@ import static org.junit.Assert.*;
  */
 public class WorkerFactoryTest {
     private Scheduler delayScheduler;
-    private Executor executor;
     private WorkerFactory factory;
     
     @Before
     public void setUp() {
         delayScheduler = EasyMock.createMock(Scheduler.class);
-        executor = EasyMock.createMock(Executor.class);
+        Executor executor = EasyMock.createMock(Executor.class);
         factory = new WorkerFactory(delayScheduler, executor);
     }
 

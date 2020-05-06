@@ -14,7 +14,7 @@ public class ThreadPoolFactory {
         return create(maxThread, workerFactory, threadFactory);
     }
     
-    static ThreadPool create(int maxThread, ExclusiveWorkerFactory workerFactory, ThreadFactory threadFactory) {
+    protected static ThreadPool create(int maxThread, ExclusiveWorkerFactory workerFactory, ThreadFactory threadFactory) {
         return new ThreadPoolImpl(maxThread, workerFactory, threadFactory);
     }
 }

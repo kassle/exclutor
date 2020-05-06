@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
@@ -107,9 +108,9 @@ public class RandomMultiScopeTest {
     }
     
     private static class Item {
-        String scope;
-        int value;
-        boolean exclusive;
+        private String scope;
+        private int value;
+        private boolean exclusive;
 
         public Item(String scope, int value, boolean exclusive) {
             this.scope = scope;
