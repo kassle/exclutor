@@ -13,6 +13,7 @@ and the next read process will on hold till the write process finish.
 
 ![](https://github.com/kassle/exclutor/workflows/Build/badge.svg)
 [ ![exclutor](https://api.bintray.com/packages/kassle/oss/exclutor/images/download.svg) ](https://bintray.com/kassle/oss/exclutor/_latestVersion)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e819971230843e587a84c0bb0e9dd8e)](https://app.codacy.com/manual/kassle/exclutor?utm_source=github.com&utm_medium=referral&utm_content=kassle/exclutor&utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/kassle/exclutor/branch/master/graph/badge.svg)](https://codecov.io/gh/kassle/exclutor)
 
 ## Usage:
