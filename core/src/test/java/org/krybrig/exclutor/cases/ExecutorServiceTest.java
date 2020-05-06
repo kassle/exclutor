@@ -2,10 +2,9 @@ package org.krybrig.exclutor.cases;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.krybrig.exclutor.AbstractExclusiveRunnable;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
@@ -57,7 +55,7 @@ public class MultiScopeTest {
                 } else if (prev.id < item.id) {
                     prev = item;
                 } else if (item.exclusive) {
-                    assertFalse("previous item (" + prev.id + ") should be executed after exclusive item (" + item.id + ")", true);
+                    fail("previous item (" + prev.id + ") should be executed after exclusive item (" + item.id + ")");
                     break;
                 }
             }
@@ -101,9 +99,9 @@ public class MultiScopeTest {
     }
     
     private static class Item {
-        int id;
-        String group;
-        boolean exclusive;
+        private int id;
+        private String group;
+        private boolean exclusive;
 
         public Item(int id, String group, boolean exclusive) {
             this.id = id;

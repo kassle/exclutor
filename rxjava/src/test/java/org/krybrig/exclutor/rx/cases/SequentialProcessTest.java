@@ -5,9 +5,9 @@ import io.reactivex.Scheduler;
 import io.reactivex.functions.Function;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.krybrig.exclutor.rx.ExclusiveSchedulerFactory;
 import org.reactivestreams.Publisher;
 
@@ -75,8 +75,8 @@ public class SequentialProcessTest {
     }
 
     private static class Item {
-        int value;
-        String threadName;
-        boolean exclusive;
+        private int value;
+        private String threadName;
+        private boolean exclusive;
     }
 }

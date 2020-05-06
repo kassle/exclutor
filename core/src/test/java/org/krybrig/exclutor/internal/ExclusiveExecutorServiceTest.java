@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +72,6 @@ public class ExclusiveExecutorServiceTest {
         EasyMock.replay(executor);
         
         service.execute(task);
-        Executors.newCachedThreadPool();
         
         EasyMock.verify(executor);
     }
@@ -118,6 +116,7 @@ public class ExclusiveExecutorServiceTest {
         
         service.shutdown();
         
+        assertEquals(true, service.isShutdown());
         EasyMock.verify(queue, future1, future2, future3);
     }
     

@@ -3,6 +3,7 @@ package org.krybrig.exclutor.internal;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import org.easymock.EasyMock;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.krybrig.exclutor.ExclusiveRunnable;
@@ -90,6 +91,7 @@ public class ExclusiveWorkerTest {
     
     @Test 
     public void onRunnableExceptionShouldUnlockToPreventDeadlock() {
+        String errMsg = "This error shall not break the executor system";
         ExclusiveRunnable runnable = new ExclusiveRunnable() {
             @Override
             public String getScope() {
@@ -103,7 +105,7 @@ public class ExclusiveWorkerTest {
 
             @Override
             public void run() {
-                throw new RuntimeException("This error shall not break the executor system");
+                throw new IllegalStateException(errMsg);
             }
         };
         
@@ -123,7 +125,9 @@ public class ExclusiveWorkerTest {
         
         try {
             worker.run();
-        } catch (RuntimeException ex) { }
+        } catch (RuntimeException ex) {
+            assertEquals(errMsg, ex.getMessage());
+        }
         
         EasyMock.verify(lock);
         EasyMock.verify(listener);
