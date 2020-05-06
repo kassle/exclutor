@@ -15,7 +15,7 @@ public class ExclusiveSchedulerFactoryTest {
     private ExclusiveSchedulerFactory schedulerFactory;
     
     @Before
-    public void setup() {
+    public void setUp() {
         workerFactory = EasyMock.createMock(WorkerFactory.class);
         schedulerFactory = new ExclusiveSchedulerFactory(workerFactory);
     }

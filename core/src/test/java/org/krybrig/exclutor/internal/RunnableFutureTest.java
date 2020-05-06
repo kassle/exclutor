@@ -17,7 +17,7 @@ public class RunnableFutureTest {
     private RunnableFuture future;
     
     @Before
-    public void setup() {
+    public void setUp() {
         delegate = EasyMock.createMock(Runnable.class);
         future = new RunnableFuture(delegate);
     }
