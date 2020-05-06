@@ -48,8 +48,8 @@ public class MultiScopeTest {
         List<Item> result = Flowable.range(start, count)
                 .flatMap(new Function<Integer, Publisher<Item>>() {
                     @Override
-                    public Publisher<Item> apply(Integer value) throws Exception {
-                        int segment = (value % segmentNum);
+                    public Publisher<Item> apply(final Integer index) throws Exception {
+                        int segment = (index % segmentNum);
                         boolean exclusive = (segment == 0);
                         int delay = 0;
                         if (exclusive) {
@@ -63,7 +63,7 @@ public class MultiScopeTest {
                                     @Override
                                     public Item apply(Integer delay) throws Exception {
                                         Item item = new Item();
-                                        item.value = value;
+                                        item.value = index;
                                         item.threadName = Thread.currentThread().getName();
                                         item.exclusive = exclusive;
                                         item.scope = scope;

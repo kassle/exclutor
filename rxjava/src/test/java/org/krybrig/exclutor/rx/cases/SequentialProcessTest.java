@@ -44,10 +44,10 @@ public class SequentialProcessTest {
         List<Item> result = Flowable.range(start, count)
                 .flatMap(new Function<Integer, Publisher<Item>>() {
                     @Override
-                    public Publisher<Item> apply(Integer value) throws Exception {
-                        boolean exclusive = (value % 5 == 0);
+                    public Publisher<Item> apply(final Integer index) throws Exception {
+                        boolean exclusive = (index % 5 == 0);
                         Scheduler scheduler = factory.createScheduler(scope, exclusive);
-                        return Flowable.just(value)
+                        return Flowable.just(index)
                                 .map(new Function<Integer, Item>() {
                                     @Override
                                     public Item apply(Integer value) throws Exception {
