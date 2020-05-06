@@ -11,12 +11,11 @@ import org.junit.Before;
  * @author kassle
  */
 public class ExclusiveSchedulerFactoryTest {
-    private WorkerFactory workerFactory;
     private ExclusiveSchedulerFactory schedulerFactory;
     
     @Before
     public void setUp() {
-        workerFactory = EasyMock.createMock(WorkerFactory.class);
+        WorkerFactory workerFactory = EasyMock.createMock(WorkerFactory.class);
         schedulerFactory = new ExclusiveSchedulerFactory(workerFactory);
     }
     
