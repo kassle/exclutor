@@ -94,7 +94,7 @@ public class MultiScopeTest {
                 } else if (!item.exclusive) {
                     prev = item;
                 } else {
-                    assertFalse("[" + scope + "] found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")", true);
+                    fail("[" + scope + "] found regular task (" + prev.value + ") executed before exclusive task (" + item.value + ")");
                 }
 
                 assertEquals(true, item.threadName.startsWith(threadName));
