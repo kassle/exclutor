@@ -105,7 +105,7 @@ public class ExclusiveWorkerTest {
 
             @Override
             public void run() {
-                throw new RuntimeException(errMsg);
+                throw new IllegalStateException(errMsg);
             }
         };
         
