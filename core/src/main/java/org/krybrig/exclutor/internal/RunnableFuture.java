@@ -61,7 +61,7 @@ class RunnableFuture<V> implements Runnable, Future<V>{
         return null;
     }
 
-    Runnable getDelegate() {
+    protected Runnable getDelegate() {
         return delegate;
     }
 }
