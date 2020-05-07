@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
@@ -58,16 +58,11 @@ public class RandomMultiScopeTest {
                 
                 if (prev == null) {
                     prev = item;
-                } else if (item.exclusive) {
-                    if (prev.value < item.value) {
-                        prev = item;
-                    } else {
-                        assertFalse("found fatal error event, prev = " + prev.value +"; next = " + item.value, false);
-                    }
                 } else if (prev.value < item.value) {
                     prev = item;
-                } else {
-                    assertFalse("found unexpected event, prev = " + prev.value +"; next = " + item.value, false);
+                } else if (item.exclusive) {
+                    fail("previous item (" + prev.value + ") should be executed after exclusive item (" + item.value + ")");
+                    break;
                 }
             }
         }
