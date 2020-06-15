@@ -24,6 +24,10 @@ public class ExclusiveSchedulerFactory {
                 ExclusiveExecutorFactory.create(maxThread, threadFactory, new LinkedBlockingQueue<>()));
     }
     
+    public ExclusiveSchedulerFactory(Executor exclusiveExecutor) {
+        this(Schedulers.from(Executors.newSingleThreadScheduledExecutor()), exclusiveExecutor);
+    }
+    
     ExclusiveSchedulerFactory(Scheduler delayScheduler, Executor executor) {
         this(new WorkerFactory(delayScheduler, executor));
     }

@@ -78,4 +78,21 @@ public class ExclusiveExecutorFactory {
         ExclusiveExecutor executor = (ExclusiveExecutor) create(maxThread, threadFactory, queue);
         return new ExclusiveExecutorService(executor, new RunnableFutureFactory(), queue);
     }
+
+    /**
+     * Create new ExclusiveExecutorService instance with default ThreadFactory and Queue
+     * @param executor instance of exclusive executor
+     * @param queue the queue to use for holding tasks before they are executed
+     * @throws IllegalArgumentException when maxThread is zero or lower
+     * @throws NullPointerException when queue is null
+     * @throws IllegalArgumentException when executor instance if not ExclusiveExecutor
+     * @return new ExclusiveExecutorService instance
+     */
+    public static ExecutorService createExecutorService(Executor executor, Queue<Runnable> queue) {
+        if (executor instanceof ExclusiveExecutor) {
+            return new ExclusiveExecutorService((ExclusiveExecutor) executor, new RunnableFutureFactory(), queue);
+        } else {
+            throw new IllegalArgumentException("Executor is not instance of ExclusiveExecutor");
+        }
+    }
 }
