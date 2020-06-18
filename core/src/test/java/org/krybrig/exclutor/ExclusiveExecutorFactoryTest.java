@@ -8,6 +8,7 @@ import org.easymock.EasyMock;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import org.junit.Test;
+import org.krybrig.exclutor.internal.ExclusiveExecutor;
 
 /**
  *
@@ -61,6 +62,19 @@ public class ExclusiveExecutorFactoryTest {
         assertNotSame(service1, service2);
     }
     
+    @Test
+    public void createExecutorServiceWithCustomExecutorShouldReturnNewObject() {
+        Queue<Runnable> queue = EasyMock.createMock(Queue.class);
+        Executor executor = EasyMock.createMock(ExclusiveExecutor.class);
+        
+        ExecutorService service1 = ExclusiveExecutorFactory.createExecutorService(executor, queue);
+        ExecutorService service2 = ExclusiveExecutorFactory.createExecutorService(executor, queue);
+        
+        assertNotNull(service1);
+        assertNotNull(service2);
+        assertNotSame(service1, service2);
+    }
+    
     @Test (expected = IllegalArgumentException.class)
     public void zeroMaxThreadShouldThrowIllegalArgumentException() {
         ExclusiveExecutorFactory.create(0);
@@ -81,5 +95,12 @@ public class ExclusiveExecutorFactoryTest {
     public void nullQueueShouldThrowNullpointerException() {
         ThreadFactory threadFactory = EasyMock.createMock(ThreadFactory.class);
         ExclusiveExecutorFactory.create(1, threadFactory, null);
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void createExecutorServiceWithNonExclusiveExecutorShouldThrowIllegalArgumentException() {
+        Queue<Runnable> queue = EasyMock.createMock(Queue.class);
+        Executor executor = EasyMock.createMock(Executor.class);
+        ExclusiveExecutorFactory.createExecutorService(executor, queue);
     }
 }
