@@ -23,16 +23,24 @@ and the next read process will on hold till the write process finish.
 #### maven
 
 ```xml
+<repositories>
+    <repository>
+        <id>krybrig-public</id>
+        <name>Krybrig Public Repository</name>
+        <url>https://app.krybrig.org/maven/repository/public/</url>
+    </repository>
+</repositories>
+
 <dependencies>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
     </dependency>
 </dependencies>
 ```
@@ -40,9 +48,15 @@ and the next read process will on hold till the write process finish.
 #### gradle
 
 ```gradle
+repositories {
+    maven {
+        url "https://app.krybrig.org/maven/repository/public"
+    }
+}
+
 dependencies {
-    compile 'org.krybrig:exclutor-core:1.2.1'
-    compile 'org.krybrig:exclutor-rx:1.2.1'
+    compile 'org.krybrig:exclutor-core:1.2.2'
+    compile 'org.krybrig:exclutor-rx:1.2.2'
 }
 ```
 

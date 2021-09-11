@@ -23,9 +23,9 @@
     
     <distributionManagement>
         <repository>
-            <id>bintray-kassle-oss</id>
-            <name>kassle-oss</name>
-            <url>https://api.bintray.com/maven/kassle/oss/exclutor/;publish=1</url>
+            <id>krybrig-public</id>
+            <name>Krybrig Public Repository</name>
+            <url>https://app.krybrig.org/maven/repository/public/</url>
         </repository>
     </distributionManagement>
     
