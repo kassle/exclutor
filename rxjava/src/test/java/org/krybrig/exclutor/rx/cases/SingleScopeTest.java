@@ -1,9 +1,9 @@
 package org.krybrig.exclutor.rx.cases;
 
-import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 import static org.junit.Assert.assertEquals;

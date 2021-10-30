@@ -1,6 +1,6 @@
 package org.krybrig.exclutor.rx;
 
-import io.reactivex.Scheduler;
+import io.reactivex.rxjava3.core.Scheduler;
 
 /**
  *
