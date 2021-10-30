@@ -1,7 +1,8 @@
 package org.krybrig.exclutor.rx;
 
-import io.reactivex.Scheduler;
 import java.util.concurrent.Executor;
+
+import io.reactivex.rxjava3.core.Scheduler;
 
 /**
  *
