@@ -39,7 +39,7 @@ and the next read process will on hold till the write process finish.
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
-	<version>1.2.2</version>
+	<version>1.3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -54,10 +54,15 @@ repositories {
 }
 
 dependencies {
-    compile 'org.krybrig:exclutor-core:1.2.2'
-    compile 'org.krybrig:exclutor-rx:1.2.2'
+    compile 'org.krybrig:exclutor-core:1.3.0'
+    compile 'org.krybrig:exclutor-rx:1.3.0'
 }
 ```
+
+####
+
+Notes:
+- change exclutor-rx to version 1.2.2 if still want to use rxjava2
 
 ### Code
 
@@ -99,7 +104,7 @@ service.submit(new AbstractExclusiveRunnable(scope, false) {
 });
 ```
 
-#### RxJava2
+#### RxJava
 
 ```java
 ExclusiveSchedulerFactory schedulerFactory = new ExclusiveSchedulerFactory(Runtime.getRuntime().availableProcessors());
