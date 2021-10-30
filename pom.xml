@@ -22,7 +22,7 @@
     
     <scm>
         <connection>scm:git:https://github.com/kassle/exclutor.git</connection>
-        <developerConnection>scm:git:git@github.com:kassle/exclutor.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/kassle/exclutor.git</developerConnection>
         <url>https://github.com/kassle/exclutor</url>
         <tag>HEAD</tag>
     </scm>
