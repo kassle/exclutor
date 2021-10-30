@@ -34,7 +34,7 @@ and the next read process will on hold till the write process finish.
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
-	<version>1.2.2</version>
+	<version>1.3.0</version>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
