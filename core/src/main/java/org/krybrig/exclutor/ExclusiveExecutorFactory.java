@@ -12,7 +12,7 @@ import org.krybrig.exclutor.internal.RunnableFutureFactory;
 import org.krybrig.exclutor.internal.ThreadPoolFactory;
 
 /**
- * <h1>Exclusive Executor Factory</h1>
+ * Exclusive Executor Factory
  * Factory to create exclusive executor instance
  * @author kassle
  */
