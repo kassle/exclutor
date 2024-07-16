@@ -14,9 +14,9 @@
     
     <distributionManagement>
         <repository>
-            <id>krybrig-public</id>
-            <name>Krybrig Public Repository</name>
-            <url>https://app.krybrig.org/maven/repository/public/</url>
+            <id>krybrig-repository-public</id>
+            <name>mvn.kry.ovh</name>
+            <url>https://mvn.kry.ovh/public</url>
         </repository>
     </distributionManagement>
     

@@ -24,9 +24,9 @@ and the next read process will on hold till the write process finish.
 ```xml
 <repositories>
     <repository>
-        <id>krybrig-public</id>
-        <name>Krybrig Public Repository</name>
-        <url>https://app.krybrig.org/maven/repository/public/</url>
+        <id>krybrig-repository-public</id>
+        <name>mvn.kry.ovh</name>
+        <url>https://mvn.kry.ovh/public</url>
     </repository>
 </repositories>
 
@@ -34,12 +34,12 @@ and the next read process will on hold till the write process finish.
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
-	<version>1.3.0</version>
+	<version>1.3.1</version>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
-	<version>1.3.0</version>
+	<version>1.3.1</version>
     </dependency>
 </dependencies>
 ```
