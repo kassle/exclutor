@@ -62,7 +62,7 @@ public class ExecutorServiceTest {
     }
     
     private ExclusiveRunnable createTask(String text1, String text2) {
-        return new AbstractExclusiveRunnable(SCOPE, true) {
+        return new AbstractExclusiveRunnable(SCOPE, false) {
             @Override
             public void run() {
                 System.out.print(text1);
