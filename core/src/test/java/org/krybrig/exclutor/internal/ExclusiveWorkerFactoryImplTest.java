@@ -1,12 +1,14 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Queue;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -18,7 +20,7 @@ public class ExclusiveWorkerFactoryImplTest {
     private WorkerListener listener;
     private ExclusiveWorkerFactory factory;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         queue = EasyMock.createMock(Queue.class);
         lockBox = EasyMock.createMock(LockBox.class);
@@ -42,13 +44,13 @@ public class ExclusiveWorkerFactoryImplTest {
         assertNotSame(worker1, worker2);
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void createShouldThrowNullPointerWhenQueueIsNull() {
-        new ExclusiveWorkerFactoryImpl(null, lockBox);
+        assertThrows(NullPointerException.class, () -> new ExclusiveWorkerFactoryImpl(null, lockBox));
     }
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public void createShouldThrowNullPointerWhenLockBoxIsNull() {
-        new ExclusiveWorkerFactoryImpl(queue, null);
+        assertThrows(NullPointerException.class, () -> new ExclusiveWorkerFactoryImpl(queue, null));
     }
 }

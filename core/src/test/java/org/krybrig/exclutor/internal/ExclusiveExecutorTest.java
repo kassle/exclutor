@@ -1,9 +1,11 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Queue;
 import org.easymock.EasyMock;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -15,7 +17,7 @@ public class ExclusiveExecutorTest {
     
     private ExclusiveExecutor executor;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         queue = EasyMock.createMock(Queue.class);
         pool = EasyMock.createMock(ThreadPool.class);
@@ -36,11 +38,11 @@ public class ExclusiveExecutorTest {
         EasyMock.verify(queue, pool);
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void executeShouldThrowNullPointerExceptionWhenTaskIsNull() {
         EasyMock.replay(queue, pool);
         
-        executor.execute(null);
+        assertThrows(NullPointerException.class, () -> executor.execute(null));
         
         EasyMock.verify(queue, pool);
     }

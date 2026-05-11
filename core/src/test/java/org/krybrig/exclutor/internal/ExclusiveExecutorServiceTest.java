@@ -1,5 +1,9 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
@@ -11,10 +15,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -26,7 +28,7 @@ public class ExclusiveExecutorServiceTest {
     private ExclusiveExecutorService service;
     private Queue<Runnable> queue;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         executor = EasyMock.createMock(ExclusiveExecutor.class);
         futureFactory = EasyMock.createMock(RunnableFutureFactory.class);
@@ -52,17 +54,17 @@ public class ExclusiveExecutorServiceTest {
         EasyMock.verify(executor);
     }
     
-    @Test (expected = NullPointerException.class)
     public void submitNullShouldThrowNullPointerException() {
-        service.submit((Runnable) null);
+        assertThrows(NullPointerException.class, () -> service.submit((Runnable) null));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void submitAfterShutdownShouldThrowRejectedExecutionException() {
         Runnable task = EasyMock.createMock(Runnable.class);
         
         service.shutdown();
-        service.submit(task);
+
+        assertThrows(RejectedExecutionException.class, () -> service.submit(task));
     }
     
     @Test
@@ -77,17 +79,18 @@ public class ExclusiveExecutorServiceTest {
         EasyMock.verify(executor);
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void executeNullShouldThrowNullPointerException() {
-        service.execute(null);
+        assertThrows(NullPointerException.class, () -> service.execute(null));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void executeAfterShutdownShouldThrowRejectedExecutionException() {
         Runnable task = EasyMock.createMock(Runnable.class);
         
         service.shutdown();
-        service.execute(task);
+
+        assertThrows(RejectedExecutionException.class, () -> service.execute(task));
     }
     
     @Test
@@ -216,36 +219,37 @@ public class ExclusiveExecutorServiceTest {
         assertEquals(false, result);
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void submitCallableShouldThrowRejectedExceptionDueToNotYetSupportedFeature() {
         Callable callable = EasyMock.mock(Callable.class);
-        service.submit(callable);
+        assertThrows(RejectedExecutionException.class, () -> service.submit(callable));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void submitRunnableWithResultShouldThrowRejectedExceptionDueToNotYetSupportedFeature() {
         Runnable runnable = EasyMock.mock(Runnable.class);
         Object result = EasyMock.mock(Object.class);
-        service.submit(runnable, result);
+
+        assertThrows(RejectedExecutionException.class, () -> service.submit(runnable, result));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void invokeAllShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException {
-        service.invokeAll(Collections.EMPTY_LIST);
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.EMPTY_LIST));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void invokeAllWithTimeOutShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException {
-        service.invokeAll(Collections.EMPTY_LIST, 1, TimeUnit.DAYS);
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.EMPTY_LIST, 1, TimeUnit.DAYS));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void invokeAnyShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException, ExecutionException {
-        service.invokeAny(Collections.EMPTY_SET);
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.EMPTY_SET));
     }
     
-    @Test (expected = RejectedExecutionException.class)
+    @Test
     public void invokeAnyWithTimeOutShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException, ExecutionException, TimeoutException {
-        service.invokeAny(Collections.EMPTY_SET, 1, TimeUnit.DAYS);
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.EMPTY_SET, 1, TimeUnit.DAYS));
     }
 }

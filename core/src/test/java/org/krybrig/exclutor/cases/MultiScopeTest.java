@@ -1,13 +1,15 @@
 package org.krybrig.exclutor.cases;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
@@ -18,7 +20,7 @@ import org.krybrig.exclutor.ExclusiveRunnable;
 public class MultiScopeTest {
     private Executor executor;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         executor = ExclusiveExecutorFactory.create(Runtime.getRuntime().availableProcessors());
     }

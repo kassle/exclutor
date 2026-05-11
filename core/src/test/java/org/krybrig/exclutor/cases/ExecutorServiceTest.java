@@ -1,10 +1,12 @@
 package org.krybrig.exclutor.cases;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.AbstractExclusiveRunnable;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
@@ -18,7 +20,7 @@ public class ExecutorServiceTest {
     private static final int MAX_THREAD = 2;
     private ExecutorService service;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         service = ExclusiveExecutorFactory.createExecutorService(MAX_THREAD);
     }

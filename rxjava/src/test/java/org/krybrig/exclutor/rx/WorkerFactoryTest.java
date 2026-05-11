@@ -1,13 +1,15 @@
 package org.krybrig.exclutor.rx;
 
 import io.reactivex.rxjava3.core.Scheduler;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.concurrent.Executor;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -17,7 +19,7 @@ public class WorkerFactoryTest {
     private Scheduler delayScheduler;
     private WorkerFactory factory;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         delayScheduler = EasyMock.createMock(Scheduler.class);
         Executor executor = EasyMock.createMock(Executor.class);

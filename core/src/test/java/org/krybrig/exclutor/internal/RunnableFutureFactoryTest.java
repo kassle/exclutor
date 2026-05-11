@@ -1,10 +1,11 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.concurrent.Future;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
 /**
@@ -14,7 +15,7 @@ import org.krybrig.exclutor.ExclusiveRunnable;
 public class RunnableFutureFactoryTest {
     private RunnableFutureFactory factory;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         factory = new RunnableFutureFactory();
     }

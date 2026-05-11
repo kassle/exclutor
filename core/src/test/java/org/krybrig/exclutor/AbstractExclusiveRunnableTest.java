@@ -1,8 +1,9 @@
 package org.krybrig.exclutor;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -13,7 +14,7 @@ public class AbstractExclusiveRunnableTest {
     private static final boolean EXCLUSIVE = true;
     private RunnableImpl runnable;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         runnable = new RunnableImpl(SCOPE, EXCLUSIVE);
     }

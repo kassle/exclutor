@@ -1,10 +1,12 @@
 package org.krybrig.exclutor.rx;
 
 import io.reactivex.rxjava3.core.Scheduler;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -16,7 +18,7 @@ public class SchedulerImplTest {
     private WorkerFactory workerFactory;
     private SchedulerImpl scheduler;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         workerFactory = EasyMock.createMock(WorkerFactory.class);
         scheduler = new SchedulerImpl(workerFactory, true, scope);

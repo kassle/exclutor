@@ -4,12 +4,15 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.rx.ExclusiveSchedulerFactory;
 import org.reactivestreams.Publisher;
 
@@ -22,7 +25,7 @@ public class MultiScopeTest {
     private ExclusiveSchedulerFactory factory;
     private final String threadName = "executors";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         factory = new ExclusiveSchedulerFactory(Runtime.getRuntime().availableProcessors(), new ThreadFactory() {
             @Override

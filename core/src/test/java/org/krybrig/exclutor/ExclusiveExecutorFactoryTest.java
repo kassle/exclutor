@@ -1,13 +1,15 @@
 package org.krybrig.exclutor;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Queue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.internal.ExclusiveExecutor;
 
 /**
@@ -75,32 +77,32 @@ public class ExclusiveExecutorFactoryTest {
         assertNotSame(service1, service2);
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void zeroMaxThreadShouldThrowIllegalArgumentException() {
-        ExclusiveExecutorFactory.create(0);
+        assertThrows(IllegalArgumentException.class, () -> ExclusiveExecutorFactory.create(0));
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void negativeMaxThreadShouldThrowIllegalArgumentException() {
-        ExclusiveExecutorFactory.create(-1);
+        assertThrows(IllegalArgumentException.class, () -> ExclusiveExecutorFactory.create(-1));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void nullThreadFactoryShouldThrowNullpointerException() {
         Queue<Runnable> queue = EasyMock.createMock(Queue.class);
-        ExclusiveExecutorFactory.create(1, null, queue);
+        assertThrows(NullPointerException.class, () -> ExclusiveExecutorFactory.create(1, null, queue));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test
     public void nullQueueShouldThrowNullpointerException() {
         ThreadFactory threadFactory = EasyMock.createMock(ThreadFactory.class);
-        ExclusiveExecutorFactory.create(1, threadFactory, null);
+        assertThrows(NullPointerException.class, () -> ExclusiveExecutorFactory.create(1, threadFactory, null));
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void createExecutorServiceWithNonExclusiveExecutorShouldThrowIllegalArgumentException() {
         Queue<Runnable> queue = EasyMock.createMock(Queue.class);
         Executor executor = EasyMock.createMock(Executor.class);
-        ExclusiveExecutorFactory.createExecutorService(executor, queue);
+        assertThrows(IllegalArgumentException.class, () -> ExclusiveExecutorFactory.createExecutorService(executor, queue));
     }
 }

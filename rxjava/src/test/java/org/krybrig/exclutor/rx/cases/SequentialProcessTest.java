@@ -3,11 +3,14 @@ package org.krybrig.exclutor.rx.cases;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.functions.Function;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.rx.ExclusiveSchedulerFactory;
 import org.reactivestreams.Publisher;
 
@@ -20,7 +23,7 @@ public class SequentialProcessTest {
     private ExclusiveSchedulerFactory factory;
     private final String scope = "sequential";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         factory = new ExclusiveSchedulerFactory(1, new ThreadFactory() {
             @Override

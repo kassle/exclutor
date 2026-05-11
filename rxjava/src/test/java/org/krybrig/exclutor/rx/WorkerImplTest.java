@@ -2,16 +2,18 @@ package org.krybrig.exclutor.rx;
 
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.Disposable;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import org.easymock.Capture;
 import org.easymock.CaptureType;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.ExclusiveRunnable;
 
 /**
@@ -26,7 +28,7 @@ public class WorkerImplTest {
     
     private WorkerImpl worker;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         delayWorker = EasyMock.createMock(Scheduler.Worker.class);
         executor = EasyMock.createMock(Executor.class);

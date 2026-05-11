@@ -1,10 +1,11 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.concurrent.ThreadFactory;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -16,7 +17,7 @@ public class ThreadPoolImplTest {
     private ThreadFactory threadFactory;
     private ThreadPoolImpl pool;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         workerFactory = EasyMock.createMock(ExclusiveWorkerFactory.class);
         threadFactory = EasyMock.createMock(ThreadFactory.class);

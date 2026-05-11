@@ -1,13 +1,14 @@
 package org.krybrig.exclutor.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -17,7 +18,7 @@ public class RunnableFutureTest {
     private Runnable delegate;
     private RunnableFuture future;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         delegate = EasyMock.createMock(Runnable.class);
         future = new RunnableFuture(delegate);

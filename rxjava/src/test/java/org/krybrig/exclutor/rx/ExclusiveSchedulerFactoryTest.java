@@ -1,12 +1,15 @@
 package org.krybrig.exclutor.rx;
 
 import io.reactivex.rxjava3.core.Scheduler;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.easymock.EasyMock;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -15,7 +18,7 @@ import org.junit.Before;
 public class ExclusiveSchedulerFactoryTest {
     private ExclusiveSchedulerFactory schedulerFactory;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         WorkerFactory workerFactory = EasyMock.createMock(WorkerFactory.class);
         schedulerFactory = new ExclusiveSchedulerFactory(workerFactory);
@@ -27,10 +30,9 @@ public class ExclusiveSchedulerFactoryTest {
         assertNotNull(factory);
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void createFactoryInstanceWithZeroMaxThreadShouldThrowIllegalArgumentException() {
-        ExclusiveSchedulerFactory factory = new ExclusiveSchedulerFactory(0);
-        assertNotNull(factory);
+        assertThrows(IllegalArgumentException.class, () -> new ExclusiveSchedulerFactory(0));
     }
     
     @Test
