@@ -95,7 +95,7 @@ public class ExclusiveExecutorService implements ExecutorService {
     }
 
     @Override
-    public Future<?> submit(Runnable task) {
+    public Future<Object> submit(Runnable task) {
         if (task == null) {
             throw new NullPointerException("Task should not null");
         } else if (finish) {

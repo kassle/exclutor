@@ -2,7 +2,6 @@ package org.krybrig.exclutor.cases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.krybrig.exclutor.AbstractExclusiveRunnable;
 import org.krybrig.exclutor.ExclusiveExecutorFactory;
 import org.krybrig.exclutor.ExclusiveRunnable;
+import org.krybrig.exclutor.internal.ExclusiveExecutorService;
 
 /**
  *
@@ -18,11 +18,11 @@ import org.krybrig.exclutor.ExclusiveRunnable;
 public class ExecutorServiceTest {
     private static final String SCOPE = "scope.executor.service";
     private static final int MAX_THREAD = 2;
-    private ExecutorService service;
+    private ExclusiveExecutorService service;
     
     @BeforeEach
     public void setUp() {
-        service = ExclusiveExecutorFactory.createExecutorService(MAX_THREAD);
+        service = (ExclusiveExecutorService) ExclusiveExecutorFactory.createExecutorService(MAX_THREAD);
     }
     
     @Test
@@ -32,9 +32,9 @@ public class ExecutorServiceTest {
         ExclusiveRunnable task2 = createTask("The World ", "is not enough");
         ExclusiveRunnable task3 = createTask("End ", "World");
         
-        Future future1 = service.submit(task1);
-        Future future2 = service.submit(task2);
-        Future future3 = service.submit(task3);
+        Future<Object> future1 = service.submit(task1);
+        Future<Object> future2 = service.submit(task2);
+        Future<Object> future3 = service.submit(task3);
         
         try {
             Thread.sleep(250);

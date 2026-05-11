@@ -9,7 +9,7 @@ import java.util.concurrent.TimeoutException;
  *
  * @author kassle
  */
-class RunnableFuture<V> implements Runnable, Future<V>{
+class RunnableFuture implements Runnable, Future<Object>{
     private boolean cancel;
     private boolean running;
     private boolean finish;
@@ -52,12 +52,12 @@ class RunnableFuture<V> implements Runnable, Future<V>{
     }
 
     @Override
-    public V get() throws InterruptedException, ExecutionException {
+    public Object get() throws InterruptedException, ExecutionException {
         return null;
     }
 
     @Override
-    public V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public Object get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         return null;
     }
 

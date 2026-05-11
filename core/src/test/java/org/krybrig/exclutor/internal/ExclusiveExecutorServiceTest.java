@@ -48,7 +48,7 @@ public class ExclusiveExecutorServiceTest {
         
         EasyMock.replay(futureFactory, executor);
         
-        Future future = service.submit(task);
+        Future<Object> future = service.submit(task);
         
         assertEquals(expectFuture, future);
         EasyMock.verify(executor);
@@ -221,7 +221,7 @@ public class ExclusiveExecutorServiceTest {
     
     @Test
     public void submitCallableShouldThrowRejectedExceptionDueToNotYetSupportedFeature() {
-        Callable callable = EasyMock.mock(Callable.class);
+        Callable<Object> callable = EasyMock.mock(Callable.class);
         assertThrows(RejectedExecutionException.class, () -> service.submit(callable));
     }
     
@@ -235,21 +235,21 @@ public class ExclusiveExecutorServiceTest {
     
     @Test
     public void invokeAllShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException {
-        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.EMPTY_LIST));
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.emptyList()));
     }
     
     @Test
     public void invokeAllWithTimeOutShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException {
-        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.EMPTY_LIST, 1, TimeUnit.DAYS));
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAll(Collections.emptyList(), 1, TimeUnit.DAYS));
     }
     
     @Test
     public void invokeAnyShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException, ExecutionException {
-        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.EMPTY_SET));
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.emptyList()));
     }
     
     @Test
     public void invokeAnyWithTimeOutShouldThrowRejectedExceptionDueToNotYetSupportedFeature() throws InterruptedException, ExecutionException, TimeoutException {
-        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.EMPTY_SET, 1, TimeUnit.DAYS));
+        assertThrows(RejectedExecutionException.class, () -> service.invokeAny(Collections.emptyList(), 1, TimeUnit.DAYS));
     }
 }

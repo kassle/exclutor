@@ -6,7 +6,7 @@ import org.krybrig.exclutor.ExclusiveRunnable;
  *
  * @author kassle
  */
-class ExclusiveRunnableFuture<V> extends RunnableFuture<V> implements ExclusiveRunnable {
+class ExclusiveRunnableFuture extends RunnableFuture implements ExclusiveRunnable {
     private final ExclusiveRunnable delegate;
 
     ExclusiveRunnableFuture(ExclusiveRunnable delegate) {

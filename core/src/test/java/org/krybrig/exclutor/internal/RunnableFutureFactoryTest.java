@@ -24,7 +24,7 @@ public class RunnableFutureFactoryTest {
     public void createRunnableFutureWithStandardRunnableInputShouldReturnStandardRunnableFuture() {
         Runnable runnable = EasyMock.createMock(Runnable.class);
         
-        Future future = factory.createFuture(runnable);
+        Future<Object> future = factory.createFuture(runnable);
         
         assertEquals(true, future instanceof RunnableFuture);
         assertEquals(false, future instanceof ExclusiveRunnableFuture);
@@ -34,7 +34,7 @@ public class RunnableFutureFactoryTest {
     public void createRunnableFutureWithExclusiveRunnableInputShouldReturnExclusiveRunnableFuture() {
         Runnable runnable = EasyMock.createMock(ExclusiveRunnable.class);
         
-        Future future = factory.createFuture(runnable);
+        Future<Object> future = factory.createFuture(runnable);
         
         assertEquals(true, future instanceof ExclusiveRunnableFuture);
     }

@@ -83,6 +83,6 @@ public class LockBoxImplTest {
         executorService.awaitTermination(5, TimeUnit.SECONDS);
         
         assertEquals(run, list.size());
-        assertEquals(uniq, new HashSet(list).size());
+        assertEquals(uniq, new HashSet<Integer>(list).size());
     }
 }
