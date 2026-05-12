@@ -12,6 +12,7 @@
 /rxjava/pom.xml.releaseBackup
 /rxjava/release.properties
 /rxjava/.classpath
+/coverage/target/
 /target/
 /.project
 /.settings/
@@ -19,3 +20,4 @@ pom.xml.releaseBackup
 release.properties
 /.classpath
 /.vscode/
+/**/.DS_Store

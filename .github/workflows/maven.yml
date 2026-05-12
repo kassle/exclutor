@@ -18,10 +18,12 @@ jobs:
         - name: Build
           run: mvn clean compile test
         - name: Report - Code Coverage
-          run: mvn cobertura:cobertura
+          run: mvn verify
         - name: Download codecov uploader
           run: curl -Os https://uploader.codecov.io/latest/linux/codecov
         - name: Setup codecov uploader
           run: chmod +x codecov
+        - name: Use report from coverage dir
+          run: cd coverage
         - name: Upload Report - Codecov
           run: ./codecov -t ${CODECOV_TOKEN} -y .github/codecov.yml
