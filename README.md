@@ -34,12 +34,12 @@ and the next read process will on hold till the write process finish.
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-core</artifactId>
-	<version>1.3.1</version>
+	<version>1.3.2</version>
     </dependency>
     <dependency>
 	<groupId>org.krybrig</groupId>
 	<artifactId>exclutor-rx</artifactId>
-	<version>1.3.1</version>
+	<version>1.3.2</version>
     </dependency>
 </dependencies>
 ```
@@ -54,8 +54,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.krybrig:exclutor-core:1.3.0'
-    compile 'org.krybrig:exclutor-rx:1.3.0'
+    compile 'org.krybrig:exclutor-core:1.3.2'
+    compile 'org.krybrig:exclutor-rx:1.3.2'
 }
 ```
 
