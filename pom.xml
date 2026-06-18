@@ -14,9 +14,9 @@
     
     <distributionManagement>
         <repository>
-            <id>krybrig-repository-public</id>
-            <name>mvn.kry.ovh</name>
-            <url>https://mvn.kry.ovh/public</url>
+            <id>rayslan-public-deploy</id>
+            <name>Rayslan Maven Repository</name>
+            <url>https://repo.rayslan.com/maven/public</url>
         </repository>
     </distributionManagement>
     

@@ -24,22 +24,22 @@ and the next read process will on hold till the write process finish.
 ```xml
 <repositories>
     <repository>
-        <id>krybrig-repository-public</id>
-        <name>mvn.kry.ovh</name>
-        <url>https://mvn.kry.ovh/public</url>
+        <id>rayslan-public</id>
+        <name>Rayslan Maven Repository</name>
+        <url>https://repo.rayslan.com/maven/public</url>
     </repository>
 </repositories>
 
 <dependencies>
     <dependency>
-	<groupId>org.krybrig</groupId>
-	<artifactId>exclutor-core</artifactId>
-	<version>1.3.2</version>
+        <groupId>org.krybrig</groupId>
+        <artifactId>exclutor-core</artifactId>
+        <version>1.3.2</version>
     </dependency>
     <dependency>
-	<groupId>org.krybrig</groupId>
-	<artifactId>exclutor-rx</artifactId>
-	<version>1.3.2</version>
+        <groupId>org.krybrig</groupId>
+        <artifactId>exclutor-rx</artifactId>
+        <version>1.3.2</version>
     </dependency>
 </dependencies>
 ```
@@ -49,7 +49,8 @@ and the next read process will on hold till the write process finish.
 ```gradle
 repositories {
     maven {
-        url "https://app.krybrig.org/maven/repository/public"
+        name = "rayslanPublic"
+        url = uri("https://repo.rayslan.com/maven/public")
     }
 }
 
